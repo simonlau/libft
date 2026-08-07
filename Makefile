@@ -1,21 +1,37 @@
-CC=cc
-CFLAGS = -Wall -Wextra -Werror -I$(THEFT_DIR)/inc -I.
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
+#    Updated: 2026/08/07 15:20:11 by simon.lau        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC := cc
+AR := ar
+ARFLAGS := rcs
+
+THEFT_URL := https://github.com/silentbicycle/theft.git
+THEFT_DIR := theft
+
+CFLAGS := -Wall -Wextra -Werror -I$(THEFT_DIR)/inc -I.
 CFLAGS += -g3 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all
 
-THEFT_URL = https://github.com/silentbicycle/theft.git
-THEFT_DIR = theft
-
 TESTS := $(basename $(notdir $(wildcard tests/*_test.c)))
-SRCS = $(wildcard ft_*.c)
-OBJS = $(SRCS:.c=.o)
-NAME = libft.a
+SRCS := $(wildcard ft_*.c)
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+NAME := libft.a
 
 .PHONY: all clean fclean re test clone-theft
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar -rcs $@ $^
+	$(AR) $(ARFLAGS) $@ $^
 
 test: $(TESTS)
 
@@ -25,13 +41,17 @@ test: $(TESTS)
 $(THEFT_DIR)/build/libtheft.a:
 	$(MAKE) -C $(THEFT_DIR)
 
+%.o: %.c libft.h
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+
+-include $(DEPS)
+
 clone-theft:
 	git clone --depth 1 $(THEFT_URL) $(THEFT_DIR)
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(TESTS)
-	rm -rf *_test.dSYM
+	rm -f $(OBJS) $(DEPS) $(TESTS)
+	rm -rf $(TESTS:=.dSYM)
 
 fclean: clean
 	rm -f $(NAME)
