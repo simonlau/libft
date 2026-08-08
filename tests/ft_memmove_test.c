@@ -3,5 +3,5 @@
 int	main(void)
 {
 	/* TODO: implement test for ft_memmove */
-	return (42);
+	return (EXIT_SUCCESS);
 }

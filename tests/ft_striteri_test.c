@@ -4,5 +4,5 @@ int
 main(void)
 {
 	/* TODO: implement test for ft_striteri */
-	return (42);
+	return (EXIT_SUCCESS);
 }

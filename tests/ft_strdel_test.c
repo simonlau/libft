@@ -4,5 +4,5 @@ int
 main(void)
 {
 	/* TODO: implement test for ft_strdel */
-	return (42);
+	return (EXIT_SUCCESS);
 }

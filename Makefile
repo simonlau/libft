@@ -18,7 +18,7 @@ THEFT_URL := https://github.com/silentbicycle/theft.git
 THEFT_DIR := theft
 
 CFLAGS := -Wall -Wextra -Werror -I$(THEFT_DIR)/inc -I.
-CFLAGS += -g3 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all
+CFLAGS += --coverage -g3 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all
 
 TESTS := $(basename $(notdir $(wildcard tests/*_test.c)))
 SRCS := $(wildcard ft_*.c)
@@ -26,7 +26,7 @@ OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 NAME := libft.a
 
-.PHONY: all clean fclean re test clone-theft
+.PHONY: all clean fclean re test run-tests coverage clone-theft
 
 all: $(NAME)
 
@@ -51,9 +51,22 @@ clone-theft:
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(TESTS)
-	rm -rf $(TESTS:=.dSYM)
+	rm -f *.gcda *.gcno
+	rm -rf $(TESTS:=.dSYM) coverage .coverage
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+run-tests: $(TESTS)
+	@for test in $(TESTS); do \
+		echo "Running $$test..."; \
+		./$$test || exit 1; \
+	done
+
+coverage: run-tests
+	@mkdir -p coverage
+	@gcov -p -o . $(SRCS) 2>/dev/null || true
+	@mv *.gcov coverage/ 2>/dev/null || true
+	@echo "Coverage reports generated in coverage/"

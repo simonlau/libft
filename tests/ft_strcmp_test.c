@@ -3,5 +3,5 @@
 int	main(void)
 {
 	/* TODO: implement test for ft_strcmp */
-	return (42);
+	return (EXIT_SUCCESS);
 }
