@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/08/07 15:20:11 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/08/14 23:36:39 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 NAME := libft.a
 
-.PHONY: all clean fclean re test run-tests coverage clone-theft
+.PHONY: all clean fclean re test run-tests coverage clone-theft wipe
 
 all: $(NAME)
 
@@ -70,3 +70,7 @@ coverage: run-tests
 	@gcov -p -o . $(SRCS) 2>/dev/null || true
 	@mv *.gcov coverage/ 2>/dev/null || true
 	@echo "Coverage reports generated in coverage/"
+
+wipe: fclean
+	rm -rf docs tests raw wiki
+	rm skills-lock.json
