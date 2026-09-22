@@ -1,42 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*   ft_isdigit_test.c                                                        */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
+#include "registry.h"
 #include "theft.h"
 #include <ctype.h>
 #include <limits.h>
 
 static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 {
-	char	c;
-	int		result;
-	int		expected;
+	int	c;
+	int	result;
+	int	expected;
 
 	(void)t;
-	c = *(const char *)arg;
+	c = *(const int *)arg;
 	result = ft_isdigit(c);
 	expected = isdigit((unsigned char)c);
 	if (expected == result)
-	{
 		return (THEFT_TRIAL_PASS);
-	}
 	return (THEFT_TRIAL_FAIL);
 }
 
-static enum theft_alloc_res	valid_char_alloc(struct theft *t, void *env,
-		void **instance)
+static enum theft_alloc_res
+valid_char_alloc(struct theft *t, void *env, void **instance)
 {
-	int			*c;
-	u_int64_t	choice;
-
 	(void)env;
-	c = malloc(sizeof(*c));
+	const uint64_t	n_uchar = (uint64_t)UCHAR_MAX + 1;
+	int				*c = malloc(sizeof(*c));
+
 	if (c == NULL)
 		return (THEFT_ALLOC_ERROR);
-	choice = theft_random_choice(t, UCHAR_MAX + 1);
-	if (choice == UCHAR_MAX)
-		*c = EOF; /* EOF = -1 */
+	if (theft_random_choice(t, n_uchar + 1) == n_uchar)
+		*c = EOF;
 	else
-	{
-		*c = choice;
-	}
+		*c = (int)theft_random_choice(t, n_uchar);
 	*instance = c;
 	return (THEFT_ALLOC_OK);
 }
@@ -46,20 +47,30 @@ static struct theft_type_info	valid_char_info = {
 	.free = theft_generic_free_cb,
 };
 
-int	main(void)
+int	ft_isdigit_test(void)
 {
 	enum theft_run_res	res;
 
 	struct theft_run_config cfg = {
-		.name = __FILE_NAME__,
 		.prop1 = prop_oracle,
-		.type_info = {&valid_char_info},
-		.trials = 500,
+#if defined(__clang__) || (defined(__GNUC__) && __GNUC__ >= 12)
+		.name = __FILE_NAME__,
+#else
+		.name = __FILE__,
+#endif
+		.type_info = { &valid_char_info },
 	};
 	res = theft_run(&cfg);
 	if (res == THEFT_RUN_PASS)
-	{
 		return (EXIT_SUCCESS);
-	}
 	return (EXIT_FAILURE);
 }
+
+REGISTER_TEST(1, ft_isdigit_test)
+
+#ifndef ALL_TESTS
+int	main(void)
+{
+	return (ft_isdigit_test());
+}
+#endif

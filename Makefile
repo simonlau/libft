@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/08/14 23:36:39 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/09/22 16:33:17 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 NAME := libft.a
 
-.PHONY: all clean fclean re test run-tests coverage clone-theft wipe
+.PHONY: all clean fclean re test run-tests coverage clone-theft wipe all-tests run-all
 
 all: $(NAME)
 
@@ -35,8 +35,14 @@ $(NAME): $(OBJS)
 
 test: $(TESTS)
 
-%_test: %.c tests/%_test.c $(THEFT_DIR)/build/libtheft.a
+%_test: %.c tests/%_test.c tests/registry.c $(THEFT_DIR)/build/libtheft.a
 	$(CC) $(CFLAGS) -o $@ $^ -lm
+
+all-tests: tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a
+	$(CC) $(CFLAGS) -Itests -DALL_TESTS -o $@ tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a -lm
+
+run-all: all-tests
+	./all-tests
 
 $(THEFT_DIR)/build/libtheft.a:
 	$(MAKE) -C $(THEFT_DIR)
@@ -51,8 +57,8 @@ clone-theft:
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(TESTS)
-	rm -f *.gcda *.gcno
-	rm -rf $(TESTS:=.dSYM) coverage .coverage
+	rm -f *.gcda *.gcno tests/*.gcda tests/*.gcno
+	rm -rf $(TESTS:=.dSYM) all-tests all-tests.dSYM coverage .coverage
 
 fclean: clean
 	rm -f $(NAME)
