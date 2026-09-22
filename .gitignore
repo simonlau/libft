@@ -2,6 +2,7 @@ theft/
 *.gcno
 *.gcda
 *_test
+all-tests
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,osx,linux,c
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,osx,linux,c
