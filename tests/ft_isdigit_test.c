@@ -19,33 +19,34 @@ static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 	(void)t;
 	c = *(const int *)arg;
 	result = ft_isdigit(c);
-	expected = isdigit((unsigned char)c);
-	if (expected == result)
+	expected = isdigit(c);
+	if ((expected == 0 && result == 0) || (expected != 0 && result == 1))
 		return (THEFT_TRIAL_PASS);
 	return (THEFT_TRIAL_FAIL);
 }
 
-static enum theft_alloc_res
-valid_char_alloc(struct theft *t, void *env, void **instance)
-{
-	(void)env;
-	const uint64_t	n_uchar = (uint64_t)UCHAR_MAX + 1;
-	int				*c = malloc(sizeof(*c));
+// static enum theft_alloc_res	valid_char_alloc(struct theft *t, void *env,
+// 		void **instance)
+// {
+// 	const uint64_t	n_uchar = (uint64_t)UCHAR_MAX + 1;
+// 	int				*c;
 
-	if (c == NULL)
-		return (THEFT_ALLOC_ERROR);
-	if (theft_random_choice(t, n_uchar + 1) == n_uchar)
-		*c = EOF;
-	else
-		*c = (int)theft_random_choice(t, n_uchar);
-	*instance = c;
-	return (THEFT_ALLOC_OK);
-}
+// 	(void)env;
+// 	c = malloc(sizeof(*c));
+// 	if (c == NULL)
+// 		return (THEFT_ALLOC_ERROR);
+// 	if (theft_random_choice(t, n_uchar + 1) == n_uchar)
+// 		*c = EOF;
+// 	else
+// 		*c = (int)theft_random_choice(t, n_uchar);
+// 	*instance = c;
+// 	return (THEFT_ALLOC_OK);
+// }
 
-static struct theft_type_info	valid_char_info = {
-	.alloc = valid_char_alloc,
-	.free = theft_generic_free_cb,
-};
+// static struct theft_type_info	valid_char_info = {
+// 	.alloc = valid_char_alloc,
+// 	.free = theft_generic_free_cb,
+// };
 
 int	ft_isdigit_test(void)
 {
@@ -53,13 +54,11 @@ int	ft_isdigit_test(void)
 
 	struct theft_run_config cfg = {
 		.prop1 = prop_oracle,
-#if defined(__clang__) || (defined(__GNUC__) && __GNUC__ >= 12)
-		.name = __FILE_NAME__,
-#else
 		.name = __FILE__,
-#endif
-		.type_info = { &valid_char_info },
+		.trials = 1000,
+		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_int)},
 	};
+	// .type_info = {&valid_char_info},
 	res = theft_run(&cfg);
 	if (res == THEFT_RUN_PASS)
 		return (EXIT_SUCCESS);
