@@ -7,3 +7,4 @@
 - ft_isprint
 - ft_strlen
 - ft_toupper
+- ft_tolower
