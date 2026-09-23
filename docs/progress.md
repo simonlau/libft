@@ -5,3 +5,4 @@
 - ft_isalnum
 - ft_isascii
 - ft_isprint
+- ft_strlen

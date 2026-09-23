@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/08/06 14:47:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/23 15:08:20 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 size_t	ft_strlen(const char *s)
 {
-	(void)s;
-	return (42);
+	int	count;
+
+	count = 0;
+	while (*s)
+	{
+		s++;
+		count++;
+	}
+	return (count);
 }
