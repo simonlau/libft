@@ -9,3 +9,4 @@
 - ft_toupper
 - ft_tolower
 - ft_memset
+- ft_bzero
