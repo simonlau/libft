@@ -6,3 +6,4 @@
 - ft_isascii
 - ft_isprint
 - ft_strlen
+- ft_toupper

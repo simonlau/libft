@@ -1,10 +1,37 @@
 #include "libft.h"
 #include "registry.h"
+#include "theft.h"
+#include <ctype.h>
+
+static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
+{
+	int	c;
+	int	result;
+	int	expected;
+
+	(void)t;
+	c = *(const int *)arg;
+	result = ft_toupper(c);
+	expected = toupper(c);
+	if (expected == result)
+		return (THEFT_TRIAL_PASS);
+	return (THEFT_TRIAL_FAIL);
+}
 
 int	ft_toupper_test(void)
 {
-	/* TODO: implement test for ft_toupper_test */
-	return (EXIT_SUCCESS);
+	enum theft_run_res	res;
+
+	struct theft_run_config cfg = {
+		.prop1 = prop_oracle,
+		.name = __FILE__,
+		.trials = 1000,
+		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_int)},
+	};
+	res = theft_run(&cfg);
+	if (res == THEFT_RUN_PASS)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 REGISTER_TEST(0, ft_toupper_test)
