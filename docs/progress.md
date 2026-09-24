@@ -14,3 +14,4 @@
 - ft_strrchr
 - ft_memchr
 - ft_memcpy
+- ft_memcmp
