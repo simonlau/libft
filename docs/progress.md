@@ -16,3 +16,4 @@
 - ft_memcpy
 - ft_memcmp
 - ft_strncmp
+- ft_memmove
