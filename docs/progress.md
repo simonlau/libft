@@ -12,3 +12,4 @@
 - ft_bzero
 - ft_strchr
 - ft_strrchr
+- ft_memchr
