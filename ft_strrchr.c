@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/08/06 14:47:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/24 13:59:54 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,24 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	(void)s;
-	(void)c;
-	return (NULL);
+	char	target;
+	char	*current;
+	char	*result;
+
+	target = (char)c;
+	current = (char *)s;
+	result = NULL;
+	while (*current)
+	{
+		if (*current == target)
+		{
+			result = current;
+		}
+		current++;
+	}
+	if (target == '\0')
+	{
+		return (current);
+	}
+	return (result);
 }

@@ -11,3 +11,4 @@
 - ft_memset
 - ft_bzero
 - ft_strchr
+- ft_strrchr
