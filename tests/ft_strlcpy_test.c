@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "registry.h"
 #include "theft.h"
-#if defined(__GLIBC__) && !defined(__USE_MISC)
+#if defined(__GLIBC__)
 # include <bsd/string.h>
 #endif
 #include <stdio.h>
