@@ -19,7 +19,13 @@ static enum theft_trial_res	prop_oracle(struct theft *t, void *arg1, void *arg2)
 	expected = memcmp(s1, s2, len);
 	result = ft_memcmp(s1, s2, len);
 	doubleCheck = ft_memcmp(s1, s1, len) == 0 && ft_memcmp(s2, s2, len) == 0;
-	if (expected == result && doubleCheck)
+	if (!doubleCheck)
+		return (THEFT_TRIAL_FAIL);
+	if (expected == 0 && result == 0)
+		return (THEFT_TRIAL_PASS);
+	if (expected > 0 && result > 0)
+		return (THEFT_TRIAL_PASS);
+	if (expected < 0 && result < 0)
 		return (THEFT_TRIAL_PASS);
 	return (THEFT_TRIAL_FAIL);
 }
