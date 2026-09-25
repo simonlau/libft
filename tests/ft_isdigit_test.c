@@ -12,12 +12,12 @@
 
 static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 {
-	int	c;
-	int	result;
-	int	expected;
+	unsigned char	c;
+	int				result;
+	int				expected;
 
 	(void)t;
-	c = *(const int *)arg;
+	c = *(const unsigned char *)arg;
 	result = ft_isdigit(c);
 	expected = isdigit(c);
 	if ((expected == 0 && result == 0) || (expected != 0 && result == 1))
@@ -56,7 +56,7 @@ int	ft_isdigit_test(void)
 		.prop1 = prop_oracle,
 		.name = __FILE__,
 		.trials = 1000,
-		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_int)},
+		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_uint8_t)},
 	};
 	// .type_info = {&valid_char_info},
 	res = theft_run(&cfg);
