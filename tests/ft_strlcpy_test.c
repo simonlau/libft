@@ -1,6 +1,9 @@
 #include "libft.h"
 #include "registry.h"
 #include "theft.h"
+#if defined(__GLIBC__) && !defined(__USE_MISC)
+# include <bsd/string.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 
@@ -26,9 +29,11 @@ static enum theft_trial_res	prop_oracle(struct theft *t, void *arg1, void *arg2)
 	if (result == answer && memcmp(actual, expected, len) == 0)
 	{
 		free(actual);
+		free(expected);
 		return (THEFT_TRIAL_PASS);
 	}
 	free(actual);
+	free(expected);
 	return (THEFT_TRIAL_FAIL);
 }
 
