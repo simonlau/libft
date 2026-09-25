@@ -44,7 +44,7 @@ int	ft_strlcpy_test(void)
 	struct theft_run_config cfg = {
 		.prop2 = prop_oracle,
 		.name = __FILE__,
-		.trials = 10,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_size_t)},
 	};

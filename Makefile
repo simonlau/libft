@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/09/25 13:55:40 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/09/25 14:36:37 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 
 test: $(TESTS)
 
-%_test: %.c tests/%_test.c tests/registry.c $(THEFT_DIR)/build/libtheft.a
+%_test: %.c tests/%_test.c tests/registry.c $(NAME) $(THEFT_DIR)/build/libtheft.a
 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 all-tests: tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a
