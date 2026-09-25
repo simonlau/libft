@@ -21,7 +21,13 @@ static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 	actual_dst = actual + 1;
 	result = ft_memmove(actual_dst, actual, len);
 	if (result == actual_dst && memcmp(actual, expected, len) == 0)
+	{
+		free(expected);
+		free(actual);
 		return (THEFT_TRIAL_PASS);
+	}
+	free(expected);
+	free(actual);
 	return (THEFT_TRIAL_FAIL);
 }
 
