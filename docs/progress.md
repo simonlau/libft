@@ -19,3 +19,4 @@
 - ft_memmove
 - ft_strlcpy
 - ft_strlcat
+- ft_strnstr
