@@ -6,8 +6,8 @@
 static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 {
 	const char	*c;
-	int			result;
-	int			expected;
+	size_t		result;
+	size_t		expected;
 
 	(void)t;
 	c = (const char *)arg;
