@@ -19,4 +19,5 @@ C Property Based Testing Library - [Theft](https://github.com/silentbicycle/thef
 
 - Generate the files and tests files with placeholder methods
 - Implement the registry for testing with `Makefile` modifications
+- `ft_memmove` needed help to generate forward and backwards overlapping test cases
 - `ft_strnstr` needed help to use double pointers to find overlapping needle
