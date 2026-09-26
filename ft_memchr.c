@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/25 13:29:02 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/26 22:14:06 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*pos;
-	char	target;
-	size_t	i;
+	unsigned char	*pos;
+	unsigned char	target;
+	size_t			i;
 
-	target = (char)c;
-	pos = (char *)s;
+	target = (unsigned char)c;
+	pos = (unsigned char *)s;
 	i = 0;
 	while (i < n)
 	{
