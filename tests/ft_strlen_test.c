@@ -34,7 +34,7 @@ int	ft_strlen_test(void)
 	return (EXIT_FAILURE);
 }
 
-REGISTER_TEST(0, ft_strlen_test)
+REGISTER_TEST(1, ft_strlen_test)
 
 #ifndef ALL_TESTS
 int	main(void)

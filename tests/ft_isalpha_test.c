@@ -35,7 +35,7 @@ int	ft_isalpha_test(void)
 	return (EXIT_FAILURE);
 }
 
-REGISTER_TEST(0, ft_isalpha_test)
+REGISTER_TEST(1, ft_isalpha_test)
 
 #ifndef ALL_TESTS
 int	main(void)

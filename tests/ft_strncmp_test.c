@@ -43,7 +43,7 @@ int	ft_strncmp_test(void)
 	return (EXIT_FAILURE);
 }
 
-REGISTER_TEST(0, ft_strncmp_test)
+REGISTER_TEST(1, ft_strncmp_test)
 
 #ifndef ALL_TESTS
 int	main(void)

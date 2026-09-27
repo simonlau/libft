@@ -68,7 +68,7 @@ int	ft_strlcat_test(void)
 	return (EXIT_FAILURE);
 }
 
-REGISTER_TEST(0, ft_strlcat_test)
+REGISTER_TEST(1, ft_strlcat_test)
 
 #ifndef ALL_TESTS
 int	main(void)

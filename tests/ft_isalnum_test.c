@@ -34,7 +34,7 @@ int	ft_isalnum_test(void)
 	return (EXIT_FAILURE);
 }
 
-REGISTER_TEST(0, ft_isalnum_test)
+REGISTER_TEST(1, ft_isalnum_test)
 
 #ifndef ALL_TESTS
 int	main(void)
