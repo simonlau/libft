@@ -6,14 +6,60 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/08/06 14:47:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/27 10:01:16 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	is_char_in_str(char c, const char *str)
+{
+	while (*str != '\0')
+	{
+		if (*str == c)
+		{
+			return (TRUE);
+		}
+		str++;
+	}
+	return (FALSE);
+}
+
+static const char	*move_pass_spaces(const char *str)
+{
+	const char	*letter;
+
+	letter = str;
+	while (is_char_in_str(*letter, "\f\n\r \t\v"))
+	{
+		letter++;
+	}
+	return (letter);
+}
+
 int	ft_atoi(const char *str)
 {
-	(void)str;
-	return (42);
+	long		result;
+	const char	*str_ptr;
+	int			sign;
+	int			actual_digit;
+
+	result = 0;
+	sign = 1;
+	str_ptr = move_pass_spaces(str);
+	if (*str_ptr == '+' || *str_ptr == '-')
+	{
+		if (*str_ptr == '-')
+			sign = -sign;
+		str_ptr++;
+	}
+	while (*str_ptr != '\0')
+	{
+		if (!is_char_in_str(*str_ptr, "0123456789"))
+			return (result);
+		actual_digit = *str_ptr - '0';
+		result = result * 10 + actual_digit;
+		str_ptr++;
+	}
+	return ((int)(result * sign));
 }
