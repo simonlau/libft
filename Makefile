@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/09/25 14:36:37 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/09/27 09:49:20 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ $(NAME): $(OBJS)
 
 test: $(TESTS)
 
+ASAN_OPTIONS := allocator_may_return_null=1
 %_test: %.c tests/%_test.c tests/registry.c $(NAME) $(THEFT_DIR)/build/libtheft.a
 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
@@ -43,7 +44,7 @@ all-tests: tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $
 	$(CC) $(CFLAGS) -Itests -DALL_TESTS -o $@ tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a -lm
 
 run-all: all-tests
-	./all-tests
+	ASAN_OPTIONS=$(ASAN_OPTIONS) ./all-tests
 
 $(THEFT_DIR)/build/libtheft.a:
 	$(MAKE) -C $(THEFT_DIR)
@@ -68,8 +69,7 @@ re: fclean all
 
 run-tests: $(TESTS)
 	@for test in $(TESTS); do \
-		echo "Running $$test..."; \
-		./$$test || exit 1; \
+		ASAN_OPTIONS=$(ASAN_OPTIONS) ./$$test || exit 1; \
 	done
 
 coverage: run-tests
