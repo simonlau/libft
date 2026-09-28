@@ -1,5 +1,13 @@
 # Knowledge Base Index
 
+## project-overview
+
+The libft project itself — the 42 subject specification: requirements, constraints, function inventory, and evaluation rules.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [The Libft Project (Subject v19.3)](project-overview/libft-project.md) | The 42 libft subject: build libft.a from ft_ reimplementations of libc functions, plus additional and linked-list APIs, under strict Norm and Makefile rules | 2026-09-28 |
+
 ## character-classification
 
 Functions that test character classes such as digits, whitespace, and alphabetic characters from <ctype.h>.

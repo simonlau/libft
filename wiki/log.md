@@ -94,3 +94,7 @@
 ## [2026-08-14] ingest | calloc
 - Disposition: New
 - Raw: raw/stdlib-functions/2026-02-08-calloc-3.md
+
+## [2026-09-28] ingest | The Libft Project (Subject v19.3)
+- Disposition: New
+- Raw: raw/project-overview/libft-subject.md
