@@ -78,3 +78,19 @@
 ## [2026-08-14] ingest | strdup
 - Disposition: New
 - Raw: raw/string-functions/2026-08-10-strdup-3.md
+
+## [2026-08-14] ingest | toupper
+- Disposition: New
+- Raw: raw/character-classification/2017-toupper.md
+
+## [2026-08-14] ingest | tolower
+- Disposition: New
+- Raw: raw/character-classification/2017-tolower.md
+
+## [2026-08-14] ingest | atoi
+- Disposition: New
+- Raw: raw/stdlib-functions/2026-02-08-atoi-3.md
+
+## [2026-08-14] ingest | calloc
+- Disposition: New
+- Raw: raw/stdlib-functions/2026-02-08-calloc-3.md

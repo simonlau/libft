@@ -12,6 +12,8 @@ Functions that test character classes such as digits, whitespace, and alphabetic
 | [isalnum](character-classification/isalnum.md) | The isalnum() function tests whether a given character is an alphanumeric character | 2026-08-14 |
 | [isascii](character-classification/isascii.md) | The isascii() function tests whether a given character is a 7-bit US-ASCII character | 2026-08-14 |
 | [isprint](character-classification/isprint.md) | The isprint() function tests whether a given character is a printable character | 2026-08-14 |
+| [toupper](character-classification/toupper.md) | The toupper() function transliterates lowercase to uppercase | 2026-08-14 |
+| [tolower](character-classification/tolower.md) | The tolower() function transliterates uppercase to lowercase | 2026-08-14 |
 
 ## string-functions
 
@@ -33,3 +35,12 @@ Standard C library string manipulation functions from <string.h>.
 | [strncmp](string-functions/strncmp.md) | The strncmp() function compares two strings up to n bytes | 2026-08-14 |
 | [strnstr](string-functions/strnstr.md) | The strnstr() function finds a substring in a length-limited string | 2026-08-14 |
 | [strdup](string-functions/strdup.md) | The strdup() function duplicates a string using malloc | 2026-08-14 |
+
+## stdlib-functions
+
+Standard C library functions from <stdlib.h> for memory allocation and numeric conversion.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [atoi](stdlib-functions/atoi.md) | The atoi() function converts a string to an integer | 2026-08-14 |
+| [calloc](stdlib-functions/calloc.md) | The calloc() function allocates zeroed memory for an array | 2026-08-14 |
