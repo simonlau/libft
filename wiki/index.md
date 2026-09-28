@@ -1,5 +1,23 @@
 # Knowledge Base Index
 
+## additional-functions
+
+Part 2 of the libft subject: functions not in libc, or present there in a different form — string builders, splitters, converters, and file-descriptor output.
+
+| Article | Summary | Updated |
+|---------|---------|---------|
+| [ft_substr](additional-functions/ft-substr.md) | Allocates and returns a substring of s starting at index start, max length len — implemented on ft_strlen/ft_calloc | 2026-09-28 |
+| [ft_strjoin](additional-functions/ft-strjoin.md) | Allocates and returns the concatenation of s1 and s2 — implemented on ft_strlen/ft_calloc/ft_strlcpy/ft_strlcat | 2026-09-28 |
+| [ft_strtrim](additional-functions/ft-strtrim.md) | Allocates a copy of s1 with set characters removed from both ends — stub, planned on ft_strchr/ft_substr | 2026-09-28 |
+| [ft_split](additional-functions/ft-split.md) | Allocates a NULL-terminated array of strings split on delimiter c — stub, planned on ft_substr | 2026-09-28 |
+| [ft_itoa](additional-functions/ft-itoa.md) | Allocates a string representing an integer, negatives included — stub | 2026-09-28 |
+| [ft_strmapi](additional-functions/ft-strmapi.md) | Allocates a string from applying f to each character with its index — stub | 2026-09-28 |
+| [ft_striteri](additional-functions/ft-striteri.md) | Applies f in place to each character with its index — stub | 2026-09-28 |
+| [ft_putchar_fd](additional-functions/ft-putchar-fd.md) | Writes a character to a file descriptor — stub | 2026-09-28 |
+| [ft_putstr_fd](additional-functions/ft-putstr-fd.md) | Writes a string to a file descriptor — stub | 2026-09-28 |
+| [ft_putendl_fd](additional-functions/ft-putendl-fd.md) | Writes a string plus newline to a file descriptor — stub | 2026-09-28 |
+| [ft_putnbr_fd](additional-functions/ft-putnbr-fd.md) | Writes an integer to a file descriptor — stub | 2026-09-28 |
+
 ## project-overview
 
 The libft project itself — the 42 subject specification: requirements, constraints, function inventory, and evaluation rules.

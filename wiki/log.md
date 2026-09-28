@@ -98,3 +98,8 @@
 ## [2026-09-28] ingest | The Libft Project (Subject v19.3)
 - Disposition: New
 - Raw: raw/project-overview/libft-subject.md
+
+## [2026-09-28] ingest | Part 2 additional functions (11 pages)
+- Disposition: New
+- Raw: raw/project-overview/libft-subject.md
+- Updated: project-overview/libft-project.md
