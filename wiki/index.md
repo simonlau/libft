@@ -8,6 +8,10 @@ Functions that test character classes such as digits, whitespace, and alphabetic
 |---------|---------|---------|
 | [isdigit](character-classification/isdigit.md) | The isdigit() function tests whether a given character is a decimal digit (0-9) | 2026-08-14 |
 | [isspace](character-classification/isspace.md) | The isspace() function tests whether a given character is a white-space character | 2026-08-14 |
+| [isalpha](character-classification/isalpha.md) | The isalpha() function tests whether a given character is an alphabetic character | 2026-08-14 |
+| [isalnum](character-classification/isalnum.md) | The isalnum() function tests whether a given character is an alphanumeric character | 2026-08-14 |
+| [isascii](character-classification/isascii.md) | The isascii() function tests whether a given character is a 7-bit US-ASCII character | 2026-08-14 |
+| [isprint](character-classification/isprint.md) | The isprint() function tests whether a given character is a printable character | 2026-08-14 |
 
 ## string-functions
 
