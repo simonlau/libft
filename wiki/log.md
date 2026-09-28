@@ -6,3 +6,7 @@
 ## [2026-08-14] ingest | isspace
 - Disposition: New
 - Raw: raw/character-classification/isspace-3p.md
+
+## [2026-08-14] ingest | strlen
+- Disposition: New
+- Raw: raw/string-functions/2026-08-10-strlen-3.md
