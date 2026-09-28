@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/27 10:16:55 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/28 09:26:00 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 		while (curr != '\0' && i + pos < len && curr == needle[pos])
 		{
 			pos++;
+			curr = haystack[i + pos];
 		}
 		if (needle[pos] == '\0')
 		{
