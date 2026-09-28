@@ -50,3 +50,31 @@
 ## [2026-08-14] ingest | bzero
 - Disposition: New
 - Raw: raw/string-functions/2026-08-10-bzero-3.md
+
+## [2026-08-14] ingest | strlcpy
+- Disposition: New
+- Raw: raw/string-functions/2026-07-11-strlcpy-3.md
+
+## [2026-08-14] ingest | strlcat
+- Disposition: New
+- Raw: raw/string-functions/2026-07-11-strlcpy-3.md
+
+## [2026-08-14] ingest | strchr
+- Disposition: New
+- Raw: raw/string-functions/2026-08-10-strchr-3.md
+
+## [2026-08-14] ingest | strrchr
+- Disposition: New
+- Raw: raw/string-functions/2026-08-10-strrchr-3.md
+
+## [2026-08-14] ingest | strncmp
+- Disposition: New
+- Raw: raw/string-functions/2026-08-10-strncmp-3.md
+
+## [2026-08-14] ingest | strnstr
+- Disposition: New
+- Raw: raw/string-functions/strnstr.md
+
+## [2026-08-14] ingest | strdup
+- Disposition: New
+- Raw: raw/string-functions/2026-08-10-strdup-3.md

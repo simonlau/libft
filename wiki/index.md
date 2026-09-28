@@ -26,3 +26,10 @@ Standard C library string manipulation functions from <string.h>.
 | [memchr](string-functions/memchr.md) | The memchr() function scans memory for a character | 2026-08-14 |
 | [memcmp](string-functions/memcmp.md) | The memcmp() function compares memory areas | 2026-08-14 |
 | [bzero](string-functions/bzero.md) | The bzero() function zeroes a byte array (legacy) | 2026-08-14 |
+| [strlcpy](string-functions/strlcpy.md) | The strlcpy() function copies a string with truncation detection | 2026-08-14 |
+| [strlcat](string-functions/strlcat.md) | The strlcat() function concatenates a string with truncation detection | 2026-08-14 |
+| [strchr](string-functions/strchr.md) | The strchr() function finds the first occurrence of a character in a string | 2026-08-14 |
+| [strrchr](string-functions/strrchr.md) | The strrchr() function finds the last occurrence of a character in a string | 2026-08-14 |
+| [strncmp](string-functions/strncmp.md) | The strncmp() function compares two strings up to n bytes | 2026-08-14 |
+| [strnstr](string-functions/strnstr.md) | The strnstr() function finds a substring in a length-limited string | 2026-08-14 |
+| [strdup](string-functions/strdup.md) | The strdup() function duplicates a string using malloc | 2026-08-14 |
