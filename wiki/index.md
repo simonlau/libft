@@ -20,3 +20,9 @@ Standard C library string manipulation functions from <string.h>.
 | Article | Summary | Updated |
 |---------|---------|---------|
 | [strlen](string-functions/strlen.md) | The strlen() function calculates the length of a string excluding the terminating null byte | 2026-08-14 |
+| [memset](string-functions/memset.md) | The memset() function fills memory with a constant byte | 2026-08-14 |
+| [memcpy](string-functions/memcpy.md) | The memcpy() function copies memory (no overlap allowed) | 2026-08-14 |
+| [memmove](string-functions/memmove.md) | The memmove() function copies memory (overlap allowed) | 2026-08-14 |
+| [memchr](string-functions/memchr.md) | The memchr() function scans memory for a character | 2026-08-14 |
+| [memcmp](string-functions/memcmp.md) | The memcmp() function compares memory areas | 2026-08-14 |
+| [bzero](string-functions/bzero.md) | The bzero() function zeroes a byte array (legacy) | 2026-08-14 |
