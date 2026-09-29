@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/26 08:22:40 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/09/28 16:39:26 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,16 @@
 
 # include <stddef.h>
 
+# define TRUE 1
+# define FALSE 0
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}	t_list;
+}					t_list;
 
-void *
-ft_memset(void *b, int c, size_t len);
+void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
@@ -50,7 +52,7 @@ void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char				*ft_substr(const char *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strtrim(char const *s);
+char				*ft_strtrim(const char *s1, const char *set);
 char				**ft_split(const char *s, char c);
 char				*ft_itoa(int n);
 void				ft_putchar_fd(char c, int fd);
