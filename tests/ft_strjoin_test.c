@@ -9,6 +9,7 @@ static enum theft_trial_res	prop_checklen(struct theft *t, void *arg1,
 	const char	*s1;
 	const char	*s2;
 	char		*result;
+	char		*another;
 
 	(void)t;
 	s1 = (const char *)arg1;
@@ -23,12 +24,15 @@ static enum theft_trial_res	prop_checklen(struct theft *t, void *arg1,
 		free(result);
 		return (THEFT_TRIAL_FAIL);
 	}
-	if (strlen(result) != strlen(ft_strjoin(s2, s1)))
+	another = ft_strjoin(s2, s1);
+	if (strlen(result) != strlen(another))
 	{
 		free(result);
+		free(another);
 		return (THEFT_TRIAL_FAIL);
 	}
 	free(result);
+	free(another);
 	return (THEFT_TRIAL_PASS);
 }
 static enum theft_trial_res	prop_checkEmpty(struct theft *t, void *arg1)
