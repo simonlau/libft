@@ -103,3 +103,13 @@
 - Disposition: New
 - Raw: raw/project-overview/libft-subject.md
 - Updated: project-overview/libft-project.md
+
+## [2026-09-28] ingest | memmove — overlap-handling diagram and examples
+- Disposition: Update
+- Raw: raw/string-functions/2026-08-10-memmove-3.md
+- Updated: string-functions/memmove.md
+
+## [2026-09-28] ingest | memmove — before/after diagrams for overlap and non-overlap cases
+- Disposition: Update
+- Raw: raw/string-functions/2026-08-10-memmove-3.md
+- Updated: string-functions/memmove.md
