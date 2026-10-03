@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/08/06 14:47:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/03 19:12:50 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	(void)s;
-	(void)f;
+	unsigned int	i;
+
+	if (!s)
+	{
+		return ;
+	}
+	i = 0;
+	while (*s != '\0')
+	{
+		f(i, s);
+		s++;
+	}
 }
