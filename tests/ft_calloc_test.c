@@ -20,6 +20,7 @@ static enum theft_trial_res	prop_set_then_compare(struct theft *t, void *arg1,
 	if (count == 0 || size == 0 || (size != 0 && count > SIZE_MAX / size))
 	{
 		actual = ft_calloc(count, size);
+		free(actual);
 		if (errno == EINVAL)
 		{
 			return (THEFT_TRIAL_PASS);
