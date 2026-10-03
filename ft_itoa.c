@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/03 15:16:34 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/03 15:42:50 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,20 @@ static long	ft_abs(int n)
 	}
 }
 
-static size_t	countDigits(long num)
+static size_t	countDigits(long num, int negativeSign)
 {
 	if (num < 10)
 	{
-		return (1);
+		if (negativeSign)
+		{
+			return (1 + 1);
+		}
+		else
+		{
+			return (1);
+		}
 	}
-	return (1 + countDigits(num / 10));
+	return (1 + countDigits(num / 10, negativeSign));
 }
 
 static char	digitToChar(int digit)
@@ -54,12 +61,12 @@ char	*ft_itoa(int n)
 	long	num;
 
 	num = ft_abs(n);
-	len = countDigits(num);
 	if (n < 0)
 		negativeSign = 1;
 	else
 		negativeSign = 0;
-	result = ft_calloc(negativeSign + len + 1, sizeof(*result));
+	len = countDigits(num, negativeSign);
+	result = ft_calloc(len + 1, sizeof(*result));
 	if (!result)
 		return (NULL);
 	i = 0;
