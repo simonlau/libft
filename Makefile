@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/09/27 09:49:20 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/10/03 15:47:19 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ THEFT_URL := https://github.com/silentbicycle/theft.git
 THEFT_DIR := theft
 
 CFLAGS := -Wall -Wextra -Werror -I$(THEFT_DIR)/inc -I.
-# CFLAGS += -lbsd
 CFLAGS += -g3 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all
+LDFLAGS += -Wl,--as-needed -lbsd
 
 TESTS := $(basename $(notdir $(wildcard tests/*_test.c)))
 SRCS := $(wildcard ft_*.c)
