@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/27 16:39:40 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/03 14:11:00 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,14 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	}
 	if (len > s_len - start)
 		len = s_len - start;
-	result = malloc((1 + len) * sizeof(*result));
+	result = ft_calloc((1 + len), sizeof(*result));
 	if (result == NULL)
-	{
 		return (NULL);
-	}
 	i = 0;
 	while (i < len)
 	{
 		result[i] = s[i + start];
 		i++;
 	}
-	result[i] = '\0';
 	return (result);
 }
