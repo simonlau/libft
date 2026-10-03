@@ -33,16 +33,19 @@ static enum theft_trial_res	prop_set_then_check(struct theft *t, void *arg1,
 	if (result == NULL && expected != NULL)
 	{
 		free(actual);
+		free(expected);
 		free(result);
 		return (THEFT_TRIAL_FAIL);
 	}
 	if (strcmp(result, expected) == 0)
 	{
 		free(actual);
+		free(expected);
 		free(result);
 		return (THEFT_TRIAL_PASS);
 	}
 	free(actual);
+	free(expected);
 	free(result);
 	return (THEFT_TRIAL_FAIL);
 }
