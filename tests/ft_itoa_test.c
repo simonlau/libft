@@ -16,8 +16,10 @@ static enum theft_trial_res	prop_oracle(struct theft *t, void *arg1)
 	expected = atoi(result);
 	if (expected == num)
 	{
+		free(result);
 		return (THEFT_TRIAL_PASS);
 	}
+	free(result);
 	return (THEFT_TRIAL_FAIL);
 }
 
