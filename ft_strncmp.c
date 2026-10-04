@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/26 22:18:54 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:35:59 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		}
 		i++;
 	}
-	return (0);
+	return (EQUAL);
 }

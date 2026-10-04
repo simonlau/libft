@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/25 14:37:00 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:33:17 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	}
 	if (size == 1)
 	{
-		*dst = '\0';
+		*dst = NULL_CHAR;
 		return (len);
 	}
 	i = 0;
@@ -33,6 +33,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 		dst[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
+	dst[i] = NULL_CHAR;
 	return (len);
 }

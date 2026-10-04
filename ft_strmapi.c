@@ -6,11 +6,12 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/03 16:59:22 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 23:11:14 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
@@ -19,9 +20,10 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	unsigned int	i;
 
 	len = ft_strlen(s);
-	result = ft_calloc(len + 1, sizeof(char));
+	result = malloc(len + NULL_CHAR_ALLOC * sizeof(char));
 	if (!result)
 		return (NULL);
+	result[len] = NULL_CHAR;
 	i = 0;
 	while (i < len)
 	{

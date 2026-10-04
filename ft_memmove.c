@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/26 22:21:07 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:32:20 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	size_t	i;
-	char	*dest_ptr;
-	char	*src_ptr;
-	size_t	pos;
+	size_t		i;
+	char		*dest_ptr;
+	const char	*src_ptr;
+	size_t		pos;
 
 	dest_ptr = (char *)dst;
-	src_ptr = (char *)src;
+	src_ptr = (const char *)src;
 	i = 0;
 	while (i < len)
 	{
@@ -30,7 +30,7 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 		}
 		else
 		{
-			pos = len - i - 1;
+			pos = len - i - NULL_CHAR_ALLOC;
 			dest_ptr[pos] = src_ptr[pos];
 		}
 		i++;

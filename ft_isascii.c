@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/23 14:58:22 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:27:08 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	ft_isascii(int c)
 {
-	return (c >= 0 && c <= 0177);
+	if (c >= 0 && c <= 0177)
+	{
+		return (TRUE);
+	}
+	return (FALSE);
 }

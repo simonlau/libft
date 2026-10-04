@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/28 16:39:26 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:35:49 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 # define TRUE 1
 # define FALSE 0
+# define EQUAL 0
+# define NULL_CHAR '\0'
+# define NULL_CHAR_ALLOC 1
 
 typedef struct s_list
 {

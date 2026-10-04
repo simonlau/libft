@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/27 09:58:06 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:39:49 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ void	*ft_calloc(size_t count, size_t size)
 		errno = ENOMEM;
 		return (NULL);
 	}
-	ft_memset(ptr, '\0', len);
+	ft_memset(ptr, NULL_CHAR, len);
 	return (ptr);
 }

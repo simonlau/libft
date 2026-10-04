@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/27 10:01:16 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 16:38:29 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_char_in_str(char c, const char *str)
 {
-	while (*str != '\0')
+	while (*str != NULL_CHAR)
 	{
 		if (*str == c)
 		{

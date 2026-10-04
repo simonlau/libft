@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/03 15:42:50 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/04 23:09:50 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,25 @@ static long	ft_abs(int n)
 	{
 		return (-(long)n);
 	}
-	else
-	{
-		return ((long)n);
-	}
+	return ((long)n);
 }
 
 static size_t	countDigits(long num, int negativeSign)
 {
+	int	CURRENT_DIGIT_SPACE;
+	int	MINUS_SIGN_SPACE;
+
+	CURRENT_DIGIT_SPACE = 1;
 	if (num < 10)
 	{
 		if (negativeSign)
 		{
-			return (1 + 1);
+			MINUS_SIGN_SPACE = 1;
+			return (CURRENT_DIGIT_SPACE + MINUS_SIGN_SPACE);
 		}
-		else
-		{
-			return (1);
-		}
+		return (CURRENT_DIGIT_SPACE);
 	}
-	return (1 + countDigits(num / 10, negativeSign));
+	return (CURRENT_DIGIT_SPACE + countDigits(num / 10, negativeSign));
 }
 
 static char	digitToChar(int digit)
@@ -47,7 +46,7 @@ static char	digitToChar(int digit)
 
 	if (digit > 9 || digit < 0)
 	{
-		return ('\0');
+		return (NULL_CHAR);
 	}
 	return (digits[digit]);
 }
@@ -66,13 +65,14 @@ char	*ft_itoa(int n)
 	else
 		negativeSign = 0;
 	len = countDigits(num, negativeSign);
-	result = ft_calloc(len + 1, sizeof(*result));
+	result = malloc(len + NULL_CHAR_ALLOC * sizeof(*result));
 	if (!result)
 		return (NULL);
+	result[len] = NULL_CHAR;
 	i = 0;
 	while (i < len)
 	{
-		result[len - 1 - i] = digitToChar(num % 10);
+		result[len - NULL_CHAR_ALLOC - i] = digitToChar(num % 10);
 		num /= 10;
 		i++;
 	}
