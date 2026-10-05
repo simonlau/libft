@@ -10,7 +10,7 @@ Part 2 of the libft subject: functions not in libc, or present there in a differ
 | [ft_strjoin](additional-functions/ft-strjoin.md) | Allocates and returns the concatenation of s1 and s2 — implemented on ft_strlen/ft_calloc/ft_strlcpy/ft_strlcat | 2026-09-28 |
 | [ft_strtrim](additional-functions/ft-strtrim.md) | Allocates a copy of s1 with set characters removed from both ends — stub, planned on ft_strchr/ft_substr | 2026-09-28 |
 | [ft_split](additional-functions/ft-split.md) | Allocates a NULL-terminated array of strings split on delimiter c — stub, planned on ft_substr | 2026-09-28 |
-| [ft_itoa](additional-functions/ft-itoa.md) | Allocates a string representing an integer, negatives included — stub | 2026-09-28 |
+| [ft_itoa](additional-functions/ft-itoa.md) | Allocates a string representing an integer, negatives included — implemented on malloc with recursive digit count | 2026-10-05 |
 | [ft_strmapi](additional-functions/ft-strmapi.md) | Allocates a string from applying f to each character with its index — stub | 2026-09-28 |
 | [ft_striteri](additional-functions/ft-striteri.md) | Applies f in place to each character with its index — stub | 2026-09-28 |
 | [ft_putchar_fd](additional-functions/ft-putchar-fd.md) | Writes a character to a file descriptor — stub | 2026-09-28 |

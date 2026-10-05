@@ -37,19 +37,19 @@ Reimplement these libc functions with identical prototypes and behaviors (per th
 
 Functions not in libc, or present there in a different form:
 
-| Function | Prototype | External |
-|---|---|---|
-| [ft_substr](../additional-functions/ft-substr.md) | `char *ft_substr(char const *s, unsigned int start, size_t len)` | malloc |
-| [ft_strjoin](../additional-functions/ft-strjoin.md) | `char *ft_strjoin(char const *s1, char const *s2)` | malloc |
-| [ft_strtrim](../additional-functions/ft-strtrim.md) | `char *ft_strtrim(char const *s1, char const *set)` | malloc |
-| [ft_split](../additional-functions/ft-split.md) | `char **ft_split(char const *s, char c)` | malloc, free |
-| [ft_itoa](../additional-functions/ft-itoa.md) | `char *ft_itoa(int n)` | malloc |
-| [ft_strmapi](../additional-functions/ft-strmapi.md) | `char *ft_strmapi(char const *s, char (*f)(unsigned int, char))` | malloc |
-| [ft_striteri](../additional-functions/ft-striteri.md) | `void ft_striteri(char *s, void (*f)(unsigned int, char*))` | None |
-| [ft_putchar_fd](../additional-functions/ft-putchar-fd.md) | `void ft_putchar_fd(char c, int fd)` | write |
-| [ft_putstr_fd](../additional-functions/ft-putstr-fd.md) | `void ft_putstr_fd(char *s, int fd)` | write |
-| [ft_putendl_fd](../additional-functions/ft-putendl-fd.md) | `void ft_putendl_fd(char *s, int fd)` | write |
-| [ft_putnbr_fd](../additional-functions/ft-putnbr-fd.md) | `void ft_putnbr_fd(int n, int fd)` | write |
+| Function                                                  | Prototype                                                        | External     |
+| --------------------------------------------------------- | ---------------------------------------------------------------- | ------------ |
+| [ft_substr](../additional-functions/ft-substr.md)         | `char *ft_substr(char const *s, unsigned int start, size_t len)` | malloc       |
+| [ft_strjoin](../additional-functions/ft-strjoin.md)       | `char *ft_strjoin(char const *s1, char const *s2)`               | malloc       |
+| [ft_strtrim](../additional-functions/ft-strtrim.md)       | `char *ft_strtrim(char const *s1, char const *set)`              | malloc       |
+| [ft_split](../additional-functions/ft-split.md)           | `char **ft_split(char const *s, char c)`                         | malloc, free |
+| [ft_itoa](../additional-functions/ft-itoa.md)             | `char *ft_itoa(int n)`                                           | malloc       |
+| [ft_strmapi](../additional-functions/ft-strmapi.md)       | `char *ft_strmapi(char const *s, char (*f)(unsigned int, char))` | malloc       |
+| [ft_striteri](../additional-functions/ft-striteri.md)     | `void ft_striteri(char *s, void (*f)(unsigned int, char*))`      | None         |
+| [ft_putchar_fd](../additional-functions/ft-putchar-fd.md) | `void ft_putchar_fd(char c, int fd)`                             | write        |
+| [ft_putstr_fd](../additional-functions/ft-putstr-fd.md)   | `void ft_putstr_fd(char *s, int fd)`                             | write        |
+| [ft_putendl_fd](../additional-functions/ft-putendl-fd.md) | `void ft_putendl_fd(char *s, int fd)`                            | write        |
+| [ft_putnbr_fd](../additional-functions/ft-putnbr-fd.md)   | `void ft_putnbr_fd(int n, int fd)`                               | write        |
 
 `ft_itoa` must handle negative numbers; `ft_split` must return a NULL-terminated array of independently allocated strings; `ft_putendl_fd` appends a newline.
 

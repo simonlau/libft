@@ -113,3 +113,8 @@
 - Disposition: Update
 - Raw: raw/string-functions/2026-08-10-memmove-3.md
 - Updated: string-functions/memmove.md
+
+## [2026-10-05] update | ft_itoa — implementation reference and mermaid diagrams
+- Disposition: Update
+- Updated: additional-functions/ft-itoa.md
+- Added: flowchart for countDigits recursion, buffer-fill walkthrough, full ft_itoa flow, edge-case table
