@@ -16,6 +16,7 @@ static enum theft_trial_res	prop_lstnew(struct theft *t, void *arg)
 		{
 			return (THEFT_TRIAL_FAIL);
 		}
+		free(result);
 		return (THEFT_TRIAL_PASS);
 	}
 	return (THEFT_TRIAL_PASS);
