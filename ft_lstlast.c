@@ -14,6 +14,13 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	(void)lst;
-	return (NULL);
+	t_list	*prev;
+
+	prev = lst;
+	while (lst != NULL)
+	{
+		prev = lst;
+		lst = lst->next;
+	}
+	return (prev);
 }
