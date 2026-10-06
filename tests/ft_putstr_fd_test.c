@@ -1,30 +1,85 @@
 #include "libft.h"
 #include "registry.h"
 #include "theft.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 {
 	char	*s;
-	FILE	*file;
-	char	*buf;
-	size_t	n;
+	int		fds[2];
+	char	stack[4096];
+	char	*out;
+	size_t	len;
+	size_t	total;
+	ssize_t	r;
+	size_t	extra;
 
 	(void)t;
 	s = (char *)arg;
-	file = open_memstream(&buf, &n);
-	if (!file)
+	len = strlen(s);
+	if (len > sizeof(stack))
+		out = malloc(len);
+	else
+		out = stack;
+	if (len != 0 && out == NULL)
 		return (THEFT_TRIAL_SKIP);
-	ft_putstr_fd(s, fileno(file));
-	fclose(file);
-	if (memcmp(buf, s, n) == EQUAL)
+	if (pipe(fds) != 0)
 	{
-		free(buf);
-		return (THEFT_TRIAL_PASS);
+		if (out != stack)
+			free(out);
+		return (THEFT_TRIAL_SKIP);
 	}
-	free(buf);
-	return (THEFT_TRIAL_FAIL);
+	ft_putstr_fd(s, fds[1]);
+	close(fds[1]);
+	total = 0;
+	while (total < len)
+	{
+		r = read(fds[0], out + total, len - total);
+		if (r == 0)
+			break ;
+		if (r < 0)
+		{
+			close(fds[0]);
+			if (out != stack)
+				free(out);
+			return (THEFT_TRIAL_SKIP);
+		}
+		total += (size_t)r;
+	}
+	extra = 0;
+	while (1)
+	{
+		r = read(fds[0], stack, sizeof(stack));
+		if (r == 0)
+			break ;
+		if (r < 0)
+		{
+			close(fds[0]);
+			if (out != stack)
+				free(out);
+			return (THEFT_TRIAL_SKIP);
+		}
+		extra += (size_t)r;
+	}
+	close(fds[0]);
+	if (total != len || extra != 0)
+	{
+		if (out != stack)
+			free(out);
+		return (THEFT_TRIAL_FAIL);
+	}
+	if (len > 0 && memcmp(out, s, len) != EQUAL)
+	{
+		if (out != stack)
+			free(out);
+		return (THEFT_TRIAL_FAIL);
+	}
+	if (out != stack)
+		free(out);
+	return (THEFT_TRIAL_PASS);
 }
 
 int	ft_putstr_fd_test(void)

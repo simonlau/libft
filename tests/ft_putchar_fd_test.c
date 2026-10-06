@@ -1,29 +1,58 @@
 #include "libft.h"
 #include "registry.h"
 #include "theft.h"
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 static enum theft_trial_res	prop_oracle(struct theft *t, void *arg)
 {
 	char	c;
-	FILE	*file;
-	char	*buf;
-	size_t	n;
+	int		fds[2];
+	char	out;
+	char	extra[16];
+	size_t	total;
+	ssize_t	r;
+	size_t	more;
 
 	(void)t;
 	c = *(const char *)arg;
-	file = open_memstream(&buf, &n);
-	if (!file)
+	if (pipe(fds) != 0)
 		return (THEFT_TRIAL_SKIP);
-	ft_putchar_fd(c, fileno(file));
-	fclose(file);
-	if (memcmp(buf, &c, n) != EQUAL)
+	ft_putchar_fd(c, fds[1]);
+	close(fds[1]);
+	total = 0;
+	while (total < 1)
 	{
-		free(buf);
-		return (THEFT_TRIAL_FAIL);
+		r = read(fds[0], &out + total, 1 - total);
+		if (r == 0)
+			break ;
+		if (r < 0)
+		{
+			close(fds[0]);
+			return (THEFT_TRIAL_SKIP);
+		}
+		total += (size_t)r;
 	}
-	free(buf);
+	more = 0;
+	while (1)
+	{
+		r = read(fds[0], extra, sizeof(extra));
+		if (r == 0)
+			break ;
+		if (r < 0)
+		{
+			close(fds[0]);
+			return (THEFT_TRIAL_SKIP);
+		}
+		more += (size_t)r;
+	}
+	close(fds[0]);
+	if (total != 1 || more != 0)
+		return (THEFT_TRIAL_FAIL);
+	if (memcmp(&out, &c, 1) != EQUAL)
+		return (THEFT_TRIAL_FAIL);
 	return (THEFT_TRIAL_PASS);
 }
 
