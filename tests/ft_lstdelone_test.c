@@ -2,10 +2,25 @@
 #include "registry.h"
 #include "theft.h"
 
+static void	noop(void *content)
+{
+	(void)content;
+	return ;
+}
+
 static enum theft_trial_res	prop_lstdelone(struct theft *t, void *arg)
 {
+	char	*str;
+	t_list	*result;
+
 	(void)t;
-	(void)arg;
+	str = (char *)arg;
+	result = ft_lstnew(str);
+	if (result != NULL)
+	{
+		ft_lstdelone(result, noop);
+		return (THEFT_TRIAL_PASS);
+	}
 	return (THEFT_TRIAL_PASS);
 }
 
@@ -25,7 +40,7 @@ int	ft_lstdelone_test(void)
 	return (EXIT_SUCCESS);
 }
 
-REGISTER_TEST(0, ft_lstdelone_test)
+REGISTER_TEST(1, ft_lstdelone_test)
 
 #ifndef ALL_TESTS
 int	main(void)

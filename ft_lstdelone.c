@@ -11,9 +11,14 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	(void)lst;
-	(void)del;
+	if (lst == NULL || del == NULL)
+	{
+		return ;
+	}
+	del(lst->content);
+	free(lst);
 }
