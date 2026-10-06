@@ -6,14 +6,14 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/08/06 14:47:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/05 15:35:40 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
 void	ft_putchar_fd(char c, int fd)
 {
-	(void)c;
-	(void)fd;
+	write(fd, &c, sizeof(char));
 }
