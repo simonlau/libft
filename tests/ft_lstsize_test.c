@@ -2,6 +2,12 @@
 #include "registry.h"
 #include "theft.h"
 
+static void	noop(void *content)
+{
+	(void)content;
+	return ;
+}
+
 static enum theft_trial_res	prop_lstsize(struct theft *t, void *arg1,
 		void *arg2, void *arg3)
 {
@@ -36,6 +42,7 @@ static enum theft_trial_res	prop_lstsize(struct theft *t, void *arg1,
 	{
 		return (THEFT_TRIAL_FAIL);
 	}
+	ft_lstclear(&head, noop);
 	return (THEFT_TRIAL_PASS);
 }
 
