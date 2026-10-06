@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/04 23:09:50 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/06 17:14:09 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@ static size_t	countDigits(long num, int negativeSign)
 
 static char	digitToChar(int digit)
 {
-	char	digits[] = "0123456789";
-
 	if (digit > 9 || digit < 0)
 	{
 		return (NULL_CHAR);
 	}
-	return (digits[digit]);
+	return (digit + '0');
 }
 
 char	*ft_itoa(int n)
