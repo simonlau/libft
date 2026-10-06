@@ -4,8 +4,20 @@
 
 static enum theft_trial_res	prop_lstnew(struct theft *t, void *arg)
 {
+	char	*str;
+	t_list	*result;
+
 	(void)t;
-	(void)arg;
+	str = (char *)arg;
+	result = ft_lstnew(str);
+	if (result != NULL)
+	{
+		if (result->content != str || result->next != NULL)
+		{
+			return (THEFT_TRIAL_FAIL);
+		}
+		return (THEFT_TRIAL_PASS);
+	}
 	return (THEFT_TRIAL_PASS);
 }
 
@@ -17,7 +29,7 @@ int	ft_lstnew_test(void)
 		.prop1 = prop_lstnew,
 		.name = __FILE__,
 		.trials = 100,
-		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_uint)},
+		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
 	};
 	res = theft_run(&cfg);
 	if (res != THEFT_RUN_PASS)
@@ -25,7 +37,7 @@ int	ft_lstnew_test(void)
 	return (EXIT_SUCCESS);
 }
 
-REGISTER_TEST(0, ft_lstnew_test)
+REGISTER_TEST(1, ft_lstnew_test)
 
 #ifndef ALL_TESTS
 int	main(void)
