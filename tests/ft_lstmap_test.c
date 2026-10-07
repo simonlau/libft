@@ -23,6 +23,7 @@ static enum theft_trial_res	prop_lstmap(struct theft *t, void *arg1, void *arg2,
 	char	*b;
 	char	*c;
 	t_list	*head;
+	t_list	*result;
 
 	(void)t;
 	a = (char *)arg1;
@@ -33,12 +34,14 @@ static enum theft_trial_res	prop_lstmap(struct theft *t, void *arg1, void *arg2,
 	ft_lstadd_front(&head, ft_lstnew(b));
 	ft_lstadd_front(&head, ft_lstnew(c));
 	g_calls = 0;
-	ft_lstmap(head, change, noop);
+	result = ft_lstmap(head, change, noop);
 	if (g_calls != 3)
 	{
+		ft_lstclear(&result, noop);
 		ft_lstclear(&head, noop);
 		return (THEFT_TRIAL_FAIL);
 	}
+	ft_lstclear(&result, noop);
 	ft_lstclear(&head, noop);
 	return (THEFT_TRIAL_PASS);
 }
