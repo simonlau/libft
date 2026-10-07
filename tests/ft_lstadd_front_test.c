@@ -20,26 +20,27 @@ static enum theft_trial_res	prop_lstadd_front(struct theft *t, void *arg1,
 	a = (char *)arg1;
 	b = (char *)arg2;
 	c = (char *)arg3;
-	(void)b;
-	(void)c;
 	head = NULL;
 	if (ft_lstsize(head) != 0)
 	{
 		return (THEFT_TRIAL_FAIL);
 	}
-	head = ft_lstnew(a);
+	ft_lstadd_front(&head, ft_lstnew(a));
 	if (ft_lstsize(head) != 1)
 	{
+		ft_lstclear(&head, noop);
 		return (THEFT_TRIAL_FAIL);
 	}
 	ft_lstadd_front(&head, ft_lstnew(b));
 	if (ft_lstsize(head) != 2)
 	{
+		ft_lstclear(&head, noop);
 		return (THEFT_TRIAL_FAIL);
 	}
 	ft_lstadd_front(&head, ft_lstnew(c));
 	if (ft_lstsize(head) != 3)
 	{
+		ft_lstclear(&head, noop);
 		return (THEFT_TRIAL_FAIL);
 	}
 	ft_lstclear(&head, noop);
@@ -53,10 +54,10 @@ int	ft_lstadd_front_test(void)
 	struct theft_run_config cfg = {
 		.prop3 = prop_lstadd_front,
 		.name = __FILE__,
-		.trials = 100,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
-			theft_get_builtin_type_info(THEFT_BUILTIN_uint8_t)},
+			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
 	};
 	res = theft_run(&cfg);
 	if (res != THEFT_RUN_PASS)
