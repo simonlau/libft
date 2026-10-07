@@ -2,10 +2,45 @@
 #include "registry.h"
 #include "theft.h"
 
-static enum theft_trial_res	prop_lstiter(struct theft *t, void *arg)
+static int					g_calls;
+
+static void	change(void *content)
 {
+	(void)content;
+	g_calls++;
+	return ;
+}
+
+static void	noop(void *content)
+{
+	(void)content;
+	return ;
+}
+
+static enum theft_trial_res	prop_lstiter(struct theft *t, void *arg1,
+		void *arg2, void *arg3)
+{
+	char	*a;
+	char	*b;
+	char	*c;
+	t_list	*head;
+
 	(void)t;
-	(void)arg;
+	a = (char *)arg1;
+	b = (char *)arg2;
+	c = (char *)arg3;
+	head = NULL;
+	ft_lstadd_front(&head, ft_lstnew(a));
+	ft_lstadd_front(&head, ft_lstnew(b));
+	ft_lstadd_front(&head, ft_lstnew(c));
+	g_calls = 0;
+	ft_lstiter(head, change);
+	if (g_calls != 3)
+	{
+		ft_lstclear(&head, noop);
+		return (THEFT_TRIAL_FAIL);
+	}
+	ft_lstclear(&head, noop);
 	return (THEFT_TRIAL_PASS);
 }
 
@@ -14,10 +49,12 @@ int	ft_lstiter_test(void)
 	enum theft_run_res	res;
 
 	struct theft_run_config cfg = {
-		.prop1 = prop_lstiter,
+		.prop3 = prop_lstiter,
 		.name = __FILE__,
-		.trials = 100,
-		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_uint)},
+		.trials = 1000,
+		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
+			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
+			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
 	};
 	res = theft_run(&cfg);
 	if (res != THEFT_RUN_PASS)
@@ -25,7 +62,7 @@ int	ft_lstiter_test(void)
 	return (EXIT_SUCCESS);
 }
 
-REGISTER_TEST(0, ft_lstiter_test)
+REGISTER_TEST(1, ft_lstiter_test)
 
 #ifndef ALL_TESTS
 int	main(void)
