@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/07 11:36:29 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/07 19:49:08 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new_node;
 
 	result = NULL;
-	if (lst == NULL || f == NULL || del == NULL)
-	{
+	if (lst == NULL)
 		return (NULL);
-	}
+	if (f == NULL || del == NULL)
+		return (lst);
 	while (lst != NULL)
 	{
 		new_content = f(lst->content);
