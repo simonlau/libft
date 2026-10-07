@@ -29,7 +29,7 @@ int	ft_lstnew_test(void)
 	struct theft_run_config cfg = {
 		.prop1 = prop_lstnew,
 		.name = __FILE__,
-		.trials = 100,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
 	};
 	res = theft_run(&cfg);

@@ -47,7 +47,7 @@ int	ft_lstclear_test(void)
 	struct theft_run_config cfg = {
 		.prop3 = prop_lstclear,
 		.name = __FILE__,
-		.trials = 100,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},

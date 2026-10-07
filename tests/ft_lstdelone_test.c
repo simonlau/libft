@@ -31,7 +31,7 @@ int	ft_lstdelone_test(void)
 	struct theft_run_config cfg = {
 		.prop1 = prop_lstdelone,
 		.name = __FILE__,
-		.trials = 100,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_uint)},
 	};
 	res = theft_run(&cfg);

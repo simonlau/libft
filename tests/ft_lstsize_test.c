@@ -53,7 +53,7 @@ int	ft_lstsize_test(void)
 	struct theft_run_config cfg = {
 		.prop3 = prop_lstsize,
 		.name = __FILE__,
-		.trials = 100,
+		.trials = 1000,
 		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
 			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
