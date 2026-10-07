@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/09/25 22:58:42 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/07 10:55:45 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		dst[i] = src[i];
 		i++;
 	}
-	dst[i] = '\0';
+	dst[i] = NULL_CHAR;
 	return (dst_len + src_len);
 }

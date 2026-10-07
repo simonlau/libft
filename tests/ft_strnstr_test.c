@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*   ft_strnstr_test.c                                                        */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr_test.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2026/10/07 10:56:47 by simon.lau        ###   ########.fr       */
 /*                                                                            */
-/*   Contract (man page): return h + p for the smallest p with                */
-/*   p + |n| <= len and p + |n| <= |h|; empty needle -> h, always.            */
-/*                                                                            */
-/*   Four runs:                                                               */
-/*     1. prop_spec  expected_strnstr vs system strnstr (validates the spec)  */
-/*     2. prop_sweep alphabet {a,b}: derived needle + exhaustive len sweep    */
-/*     3. prop_sweep full-byte alphabet                                      */
-/*     4. prop_diff  ft vs system strnstr, independent gens, raw len          */
+/* ************************************************************************** */
+
 /*                                                                            */
 /*   Stays RED until ft_strnstr.c actually searches.                          */
 /*                                                                            */
@@ -27,12 +27,13 @@
 
 #define HAY_MAX 15
 
-struct s_hay_env {
-	size_t	alphabet_bits;
+struct							s_hay_env
+{
+	size_t						alphabet_bits;
 };
 
-static struct s_hay_env		g_env_ab = {.alphabet_bits = 1};
-static struct s_hay_env		g_env_bytes = {.alphabet_bits = 8};
+static struct s_hay_env			g_env_ab = {.alphabet_bits = 1};
+static struct s_hay_env			g_env_bytes = {.alphabet_bits = 8};
 static struct theft_type_info	g_hay_ab;
 static struct theft_type_info	g_hay_bytes;
 
@@ -72,7 +73,7 @@ static enum theft_alloc_res	hay_alloc(struct theft *t, void *env,
 			s[i] = (char)bits;
 		i++;
 	}
-	s[len] = '\0';
+	s[len] = NULL_CHAR;
 	*instance = s;
 	return (THEFT_ALLOC_OK);
 }
@@ -106,8 +107,8 @@ static int	check_junk(const char *h, const char *n)
 	return (check_lens(junk, n));
 }
 
-static enum theft_trial_res	prop_sweep(struct theft *t, void *arg1,
-		void *arg2, void *arg3)
+static enum theft_trial_res	prop_sweep(struct theft *t, void *arg1, void *arg2,
+		void *arg3)
 {
 	const char	*h;
 	size_t		p;
@@ -119,14 +120,14 @@ static enum theft_trial_res	prop_sweep(struct theft *t, void *arg1,
 	p = *(const size_t *)arg2 % (strlen(h) + 1);
 	m = *(const size_t *)arg3 % (strlen(h) - p + 1);
 	memcpy(needle, h + p, m);
-	needle[m] = '\0';
+	needle[m] = NULL_CHAR;
 	if (!check_lens(h, needle) || !check_junk(h, needle))
 		return (THEFT_TRIAL_FAIL);
 	return (THEFT_TRIAL_PASS);
 }
 
-static enum theft_trial_res	prop_diff(struct theft *t, void *arg1,
-		void *arg2, void *arg3)
+static enum theft_trial_res	prop_diff(struct theft *t, void *arg1, void *arg2,
+		void *arg3)
 {
 	const char	*h;
 	const char	*n;
@@ -141,8 +142,8 @@ static enum theft_trial_res	prop_diff(struct theft *t, void *arg1,
 	return (THEFT_TRIAL_PASS);
 }
 
-static enum theft_trial_res	prop_spec(struct theft *t, void *arg1,
-		void *arg2, void *arg3)
+static enum theft_trial_res	prop_spec(struct theft *t, void *arg1, void *arg2,
+		void *arg3)
 {
 	const char	*h;
 	const char	*n;
@@ -158,20 +159,19 @@ static enum theft_trial_res	prop_spec(struct theft *t, void *arg1,
 }
 
 static int	run_prop(const char *name, theft_propfun3 *prop,
-		const struct theft_type_info *t0,
-		const struct theft_type_info *t1,
+		const struct theft_type_info *t0, const struct theft_type_info *t1,
 		const struct theft_type_info *t2)
 {
-	struct theft_run_config	cfg = {
+	struct theft_run_config cfg = {
 		.prop3 = prop,
 		.name = name,
 		.trials = 1000,
 		.type_info = {t0, t1, t2},
-		.hooks = {
-			.trial_pre = theft_hook_first_fail_halt,
-		},
+		.hooks =
+			{
+				.trial_pre = theft_hook_first_fail_halt,
+			},
 	};
-
 	return (theft_run(&cfg) == THEFT_RUN_PASS);
 }
 
@@ -191,13 +191,13 @@ int	ft_strnstr_test(void)
 	g_hay_bytes.env = &g_env_bytes;
 	ok = 1;
 	ok &= run_prop("strnstr: spec vs system oracle", prop_spec, chars, chars,
-		size);
+			size);
 	ok &= run_prop("strnstr: sweep, alphabet {a,b}", prop_sweep, &g_hay_ab,
-		size, size);
+			size, size);
 	ok &= run_prop("strnstr: sweep, full-byte alphabet", prop_sweep,
-		&g_hay_bytes, size, size);
+			&g_hay_bytes, size, size);
 	ok &= run_prop("strnstr: ft vs system oracle", prop_diff, chars, chars,
-		size);
+			size);
 	if (!ok)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

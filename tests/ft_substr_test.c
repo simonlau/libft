@@ -29,7 +29,7 @@ static enum theft_trial_res	check_substr(const char *s, unsigned int start,
 	}
 	if (expected_len > 0)
 		memcpy(expected, s + start, expected_len);
-	expected[expected_len] = '\0';
+	expected[expected_len] = NULL_CHAR;
 	if (result == NULL || strcmp(result, expected) != 0)
 	{
 		free(result);
@@ -44,8 +44,8 @@ static enum theft_trial_res	check_substr(const char *s, unsigned int start,
 static enum theft_trial_res	prop_set_then_compare(struct theft *t, void *arg1,
 		void *arg2, void *arg3)
 {
-	const char			*s;
-	unsigned int		start;
+	const char		*s;
+	unsigned int	start;
 
 	(void)t;
 	s = (const char *)arg1;
@@ -58,8 +58,8 @@ static enum theft_trial_res	prop_fuzz(struct theft *t, void *arg1, void *arg2,
 		void *arg3)
 {
 	(void)t;
-	return (check_substr((const char *)arg1,
-			*(const unsigned int *)arg2, *(const size_t *)arg3));
+	return (check_substr((const char *)arg1, *(const unsigned int *)arg2,
+			*(const size_t *)arg3));
 }
 
 int	ft_substr_test(void)
