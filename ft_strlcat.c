@@ -6,11 +6,23 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/07 10:55:45 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/07 19:32:21 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static size_t	ft_strnlen(const char *s, size_t max)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != NULL_CHAR && i < max)
+	{
+		i++;
+	}
+	return (i);
+}
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
@@ -19,9 +31,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	size_t	i;
 
 	src_len = ft_strlen(src);
-	dst_len = ft_strlen(dst);
 	if (dstsize == 0)
-		return (dst_len + src_len);
+		return (src_len);
+	dst_len = ft_strnlen(dst, dstsize);
 	i = 0;
 	dst += dst_len;
 	if (dst_len >= dstsize)
