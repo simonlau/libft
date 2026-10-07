@@ -4,6 +4,21 @@
 #include <stdio.h>
 #include <string.h>
 
+static void	free_result(char **result)
+{
+	int	i;
+
+	if (result == NULL)
+		return ;
+	i = 0;
+	while (result[i] != NULL)
+	{
+		free(result[i]);
+		i++;
+	}
+	free(result);
+}
+
 static enum theft_trial_res	prop_set_then_check(struct theft *t, void *arg1,
 		void *arg2, void *arg3)
 {
@@ -26,16 +41,21 @@ static enum theft_trial_res	prop_set_then_check(struct theft *t, void *arg1,
 	expected[2] = NULL;
 	if (strchr(s1, c) != NULL || strchr(s2, c) != NULL)
 		return (THEFT_TRIAL_SKIP);
-	if (*s1 == '\0' || *s2 == '\0')
+	if (*s1 == NULL_CHAR || *s2 == NULL_CHAR)
 		return (THEFT_TRIAL_SKIP);
-	len = 1 + strlen(s1) + 1 + strlen(s2) + 1 + 1;
+	len = 2 + strlen(s1) + 2 + strlen(s2) + 2 + NULL_CHAR_ALLOC;
 	combined = malloc(len * sizeof(*combined));
 	if (combined == NULL)
 	{
 		return (THEFT_TRIAL_SKIP);
 	}
-	snprintf(combined, len, "%c%s%c%s%c", c, s1, c, s2, c);
+	snprintf(combined, len, "%c%c%s%c%c%s%c%c", c, c, s1, c, c, s2, c, c);
 	result = ft_split(combined, c);
+	if (result == NULL)
+	{
+		free(combined);
+		return (THEFT_TRIAL_FAIL);
+	}
 	i = 0;
 	while (i < 3)
 	{
@@ -43,11 +63,13 @@ static enum theft_trial_res	prop_set_then_check(struct theft *t, void *arg1,
 		if (oneNullButNotOther || (expected[i] != NULL && strcmp(expected[i],
 					result[i]) != 0))
 		{
+			free_result(result);
 			free(combined);
 			return (THEFT_TRIAL_FAIL);
 		}
 		i++;
 	}
+	free_result(result);
 	free(combined);
 	return (THEFT_TRIAL_PASS);
 }

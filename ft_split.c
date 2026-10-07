@@ -6,97 +6,106 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/03 13:12:27 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/07 12:32:33 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	count_groups(char c, const char *str)
+static size_t	count_words(const char *s, char c)
 {
 	size_t	count;
+	int		in_word;
 
 	count = 0;
-	while (str != NULL && *str != '\0')
+	in_word = FALSE;
+	while (*s != NULL_CHAR)
 	{
-		if (*str == c)
+		if (*s != c && in_word == FALSE)
 		{
+			in_word = TRUE;
 			count++;
 		}
-		str++;
+		else if (*s == c)
+			in_word = FALSE;
+		s++;
 	}
 	return (count);
 }
 
-static void	freeUsed(char **result, int num)
+static void	free_all(char **arr, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (i < num)
+	while (i < n)
 	{
-		free(result[i]);
+		free(arr[i]);
 		i++;
 	}
-	free(result);
+	free(arr);
 }
 
-static void	handleLastWord(char **result, int i, const char *current_letter)
+static char	*dup_range(const char *str, size_t start, size_t len)
 {
-	result[i] = ft_strdup(current_letter);
-	if (!result[i])
+	char	*word;
+	size_t	i;
+
+	word = malloc((len + NULL_CHAR_ALLOC) * sizeof(*word));
+	if (word == NULL)
+		return (NULL);
+	i = 0;
+	while (i < len)
 	{
-		freeUsed(result, i);
-		return ;
+		word[i] = str[start + i];
+		i++;
 	}
-	result[i + 1] = NULL;
+	word[i] = NULL_CHAR;
+	return (word);
 }
 
-static void	split(const char *trim_str, char c, size_t numSep, char **result)
+static int	fill_split(char **arr, const char *s, char c)
 {
-	size_t		i;
-	const char	*current_letter;
-	char		*next;
+	size_t	i;
+	size_t	word;
+	size_t	start;
 
 	i = 0;
-	current_letter = trim_str;
-	while (i < numSep)
+	word = 0;
+	while (s[i])
 	{
-		next = ft_strchr(current_letter, c);
-		if (next == NULL)
+		while (s[i] && s[i] == c)
+			i++;
+		if (s[i] == NULL_CHAR)
 			break ;
-		result[i] = malloc((next - current_letter + 1) * sizeof(**result));
-		if (!result[i])
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;
+		arr[word] = dup_range(s, start, i - start);
+		if (arr[word] == NULL)
 		{
-			freeUsed(result, i);
-			return ;
+			free_all(arr, word);
+			return (FALSE);
 		}
-		ft_strlcpy(result[i], current_letter, next - current_letter + 1);
-		current_letter = next + 1;
-		i++;
+		word++;
 	}
-	handleLastWord(result, i, current_letter);
+	arr[word] = NULL;
+	return (TRUE);
 }
 
-char	**ft_split(const char *str, char c)
+char	**ft_split(const char *s, char c)
 {
-	char	*trim_str;
-	size_t	numSep;
 	char	**result;
-	char	set[] = {c, '\0'};
+	size_t	n;
 
-	trim_str = ft_strtrim(str, set);
-	if (!trim_str)
+	if (s == NULL)
 		return (NULL);
-	numSep = count_groups(c, trim_str);
-	result = malloc((1 + 1 + numSep) * sizeof(*result));
-	if (!result)
-	{
-		free(trim_str);
+	n = count_words(s, c);
+	result = malloc((n + 1) * sizeof(*result));
+	if (result == NULL)
 		return (NULL);
-	}
-	split(trim_str, c, numSep + 1, result);
-	free(trim_str);
+	if (fill_split(result, s, c) == FALSE)
+		return (NULL);
 	return (result);
 }
