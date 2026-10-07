@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/06 17:14:09 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/07 11:43:28 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,32 @@ static long	ft_abs(int n)
 	return ((long)n);
 }
 
-static size_t	countDigits(long num, int negativeSign)
+static int	calc_negative_sign(int n)
 {
-	int	CURRENT_DIGIT_SPACE;
-	int	MINUS_SIGN_SPACE;
-
-	CURRENT_DIGIT_SPACE = 1;
-	if (num < 10)
-	{
-		if (negativeSign)
-		{
-			MINUS_SIGN_SPACE = 1;
-			return (CURRENT_DIGIT_SPACE + MINUS_SIGN_SPACE);
-		}
-		return (CURRENT_DIGIT_SPACE);
-	}
-	return (CURRENT_DIGIT_SPACE + countDigits(num / 10, negativeSign));
+	if (n < 0)
+		return (1);
+	return (0);
 }
 
-static char	digitToChar(int digit)
+static size_t	count_digits(long num, int negative_sign)
+{
+	int	current_digit_space;
+	int	minus_sign_space;
+
+	current_digit_space = 1;
+	if (num < 10)
+	{
+		if (negative_sign)
+		{
+			minus_sign_space = 1;
+			return (current_digit_space + minus_sign_space);
+		}
+		return (current_digit_space);
+	}
+	return (current_digit_space + count_digits(num / 10, negative_sign));
+}
+
+static char	digit_to_char(int digit)
 {
 	if (digit > 9 || digit < 0)
 	{
@@ -52,17 +59,14 @@ static char	digitToChar(int digit)
 char	*ft_itoa(int n)
 {
 	char	*result;
-	int		negativeSign;
+	int		negative_sign;
 	size_t	len;
 	size_t	i;
 	long	num;
 
 	num = ft_abs(n);
-	if (n < 0)
-		negativeSign = 1;
-	else
-		negativeSign = 0;
-	len = countDigits(num, negativeSign);
+	negative_sign = calc_negative_sign(n);
+	len = count_digits(num, negative_sign);
 	result = malloc(len + NULL_CHAR_ALLOC * sizeof(*result));
 	if (!result)
 		return (NULL);
@@ -70,11 +74,11 @@ char	*ft_itoa(int n)
 	i = 0;
 	while (i < len)
 	{
-		result[len - NULL_CHAR_ALLOC - i] = digitToChar(num % 10);
+		result[len - NULL_CHAR_ALLOC - i] = digit_to_char(num % 10);
 		num /= 10;
 		i++;
 	}
-	if (negativeSign == 1)
+	if (negative_sign == 1)
 		result[0] = '-';
 	return (result);
 }
