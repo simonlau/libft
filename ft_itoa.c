@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/07 11:43:28 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/08 12:46:44 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_itoa(int n)
 	num = ft_abs(n);
 	negative_sign = calc_negative_sign(n);
 	len = count_digits(num, negative_sign);
-	result = malloc(len + NULL_CHAR_ALLOC * sizeof(*result));
+	result = malloc((len + NULL_CHAR_ALLOC) * sizeof(*result));
 	if (!result)
 		return (NULL);
 	result[len] = NULL_CHAR;
