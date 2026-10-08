@@ -6,30 +6,30 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/07 12:32:33 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/08 12:53:17 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static size_t	count_words(const char *s, char c)
+static size_t	count_words(const char *str, char c)
 {
 	size_t	count;
 	int		in_word;
 
 	count = 0;
 	in_word = FALSE;
-	while (*s != NULL_CHAR)
+	while (*str != NULL_CHAR)
 	{
-		if (*s != c && in_word == FALSE)
+		if (*str != c && in_word == FALSE)
 		{
 			in_word = TRUE;
 			count++;
 		}
-		else if (*s == c)
+		else if (*str == c)
 			in_word = FALSE;
-		s++;
+		str++;
 	}
 	return (count);
 }
@@ -65,7 +65,7 @@ static char	*dup_range(const char *str, size_t start, size_t len)
 	return (word);
 }
 
-static int	fill_split(char **arr, const char *s, char c)
+static int	fill_split(char **arr, const char *str, char c)
 {
 	size_t	i;
 	size_t	word;
@@ -73,16 +73,16 @@ static int	fill_split(char **arr, const char *s, char c)
 
 	i = 0;
 	word = 0;
-	while (s[i])
+	while (str[i] != NULL_CHAR)
 	{
-		while (s[i] && s[i] == c)
+		while (str[i] != NULL_CHAR && str[i] == c)
 			i++;
-		if (s[i] == NULL_CHAR)
+		if (str[i] == NULL_CHAR)
 			break ;
 		start = i;
-		while (s[i] && s[i] != c)
+		while (str[i] != NULL_CHAR && str[i] != c)
 			i++;
-		arr[word] = dup_range(s, start, i - start);
+		arr[word] = dup_range(str, start, i - start);
 		if (arr[word] == NULL)
 		{
 			free_all(arr, word);
@@ -97,12 +97,12 @@ static int	fill_split(char **arr, const char *s, char c)
 char	**ft_split(const char *s, char c)
 {
 	char	**result;
-	size_t	n;
+	size_t	num_words;
 
 	if (s == NULL)
 		return (NULL);
-	n = count_words(s, c);
-	result = malloc((n + 1) * sizeof(*result));
+	num_words = count_words(s, c);
+	result = malloc((num_words + 1) * sizeof(*result));
 	if (result == NULL)
 		return (NULL);
 	if (fill_split(result, s, c) == FALSE)

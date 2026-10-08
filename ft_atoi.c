@@ -6,7 +6,7 @@
 /*   By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 15:39:55 by simon.lau         #+#    #+#             */
-/*   Updated: 2026/10/07 19:05:51 by simon.lau        ###   ########.fr       */
+/*   Updated: 2026/10/08 12:14:39 by simon.lau        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	ft_atoi(const char *str)
 	}
 	while (*str_ptr != NULL_CHAR)
 	{
-		if (!ft_isdigit(*str_ptr))
+		if (ft_isdigit(*str_ptr) == FALSE)
 			return ((int)(result * sign));
 		actual_digit = *str_ptr - '0';
 		result = result * 10 + actual_digit;
