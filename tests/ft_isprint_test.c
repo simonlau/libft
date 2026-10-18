@@ -16,7 +16,7 @@ tstsuite("ft_isprint") {
             c = (unsigned char)rand();
             result = ft_isprint(c);
             expected = isprint(c);
-            tstcheck((expected == 0 && result == 0) || (expected != 0 && result == 1),
+            tstexpect((expected == 0 && result == 0) || (expected != 0 && result == 1),
                      "ft_isprint(%d) = %d != %d", c, result, expected);
         }
     }

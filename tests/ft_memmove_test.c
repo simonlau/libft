@@ -31,17 +31,17 @@ tstsuite("ft_memmove") {
             if (config < 0) {
                 memmove(expected + 1, expected, len);
                 result = ft_memmove(actual + 1, actual, len);
-                tstcheck(result == actual + 1 && memcmp(actual, expected, len + 1) == 0,
+                tstexpect(result == actual + 1 && memcmp(actual, expected, len + 1) == 0,
                          "ft_memmove backward mismatch");
             } else if (config > 0) {
                 memmove(expected, expected + 1, len);
                 result = ft_memmove(actual, actual + 1, len);
-                tstcheck(result == actual && memcmp(actual, expected, len + 1) == 0,
+                tstexpect(result == actual && memcmp(actual, expected, len + 1) == 0,
                          "ft_memmove forward mismatch");
             } else {
                 memmove(expected, expected, len);
                 result = ft_memmove(actual, actual, len);
-                tstcheck(result == actual && memcmp(actual, expected, len + 1) == 0,
+                tstexpect(result == actual && memcmp(actual, expected, len + 1) == 0,
                          "ft_memmove same mismatch");
             }
             free(buf);

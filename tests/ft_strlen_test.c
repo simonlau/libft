@@ -23,7 +23,7 @@ tstsuite("ft_strlen") {
             s[len] = '\0';
             result = ft_strlen(s);
             expected = strlen(s);
-            tstcheck(expected == result, "ft_strlen(%s) = %zu != %zu", s, result, expected);
+            tstexpect(expected == result, "ft_strlen(%s) = %zu != %zu", s, result, expected);
             free(s);
         }
     }

@@ -16,7 +16,7 @@ tstsuite("ft_isdigit") {
             c = (unsigned char)rand();
             result = ft_isdigit(c);
             expected = isdigit(c);
-            tstcheck((expected == 0 && result == 0) || (expected != 0 && result == 1),
+            tstexpect((expected == 0 && result == 0) || (expected != 0 && result == 1),
                      "ft_isdigit(%d) = %d != %d", c, result, expected);
         }
     }

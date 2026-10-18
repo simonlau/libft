@@ -18,7 +18,7 @@ tstsuite("ft_itoa") {
             result = ft_itoa(num);
             if (result == NULL) continue;
             expected = atoi(result);
-            tstcheck(expected == num, "ft_itoa(%d) roundtrip fail: got %d", num, expected);
+            tstexpect(expected == num, "ft_itoa(%d) roundtrip fail: got %d", num, expected);
             free(result);
         }
     }

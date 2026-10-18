@@ -26,7 +26,7 @@ tstsuite("ft_memcpy") {
             if (actual == NULL || expected == NULL) { free(str); free(actual); free(expected); continue; }
             memcpy(expected, str, len);
             result = ft_memcpy(actual, str, len);
-            tstcheck(memcmp(actual, expected, len) == 0 && result == actual,
+            tstexpect(memcmp(actual, expected, len) == 0 && result == actual,
                      "ft_memcpy mismatch for len=%d", len);
             free(str);
             free(actual);

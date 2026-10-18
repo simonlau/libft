@@ -16,7 +16,7 @@ tstsuite("ft_isascii") {
             c = (unsigned char)rand();
             result = ft_isascii(c);
             expected = isascii(c);
-            tstcheck((expected == 0 && result == 0) || (expected != 0 && result == 1),
+            tstexpect((expected == 0 && result == 0) || (expected != 0 && result == 1),
                      "ft_isascii(%d) = %d != %d", c, result, expected);
         }
     }

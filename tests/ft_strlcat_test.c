@@ -38,7 +38,7 @@ tstsuite("ft_strlcat") {
             if (expected == NULL) { free(actual); free(dst); free(src); continue; }
             snprintf(expected, num, "%s", dst);
             result = ft_strlcat(actual, src, num);
-            tstcheck(result == strlen(expected) && memcmp(actual, expected, num) == 0,
+            tstexpect(result == strlen(expected) && memcmp(actual, expected, num) == 0,
                      "ft_strlcat mismatch for num=%u", num);
             free(actual);
             free(expected);

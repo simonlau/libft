@@ -16,7 +16,7 @@ tstsuite("ft_toupper") {
             c = (unsigned char)rand();
             result = ft_toupper(c);
             expected = toupper(c);
-            tstcheck(result == expected, "ft_toupper(%d) = %d != %d", c, result, expected);
+            tstexpect(result == expected, "ft_toupper(%d) = %d != %d", c, result, expected);
         }
     }
 }

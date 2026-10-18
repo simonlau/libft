@@ -29,7 +29,7 @@ tstsuite("ft_strncmp") {
             len = (strlen(s1) + strlen(s2)) / 2;
             expected = strncmp(s1, s2, len);
             result = ft_strncmp(s1, s2, len);
-            tstcheck((expected == 0 && result == 0) ||
+            tstexpect((expected == 0 && result == 0) ||
                      (expected > 0 && result > 0) ||
                      (expected < 0 && result < 0), "ft_strncmp mismatch");
             free(s1);

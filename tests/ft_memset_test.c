@@ -27,7 +27,7 @@ tstsuite("ft_memset") {
             if (expected == NULL) { free(b); free(actual); continue; }
             memset(expected, c, len);
             ft_memset(actual, c, len);
-            tstcheck(memcmp(actual, expected, len) == 0, "ft_memset mismatch for len=%d", len);
+            tstexpect(memcmp(actual, expected, len) == 0, "ft_memset mismatch for len=%d", len);
             free(b);
             free(actual);
             free(expected);

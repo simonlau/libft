@@ -24,7 +24,7 @@ tstsuite("ft_bzero") {
             expected = calloc(len, len * sizeof(*expected));
             if (expected == NULL) { free(s); free(actual); continue; }
             ft_bzero(actual, len);
-            tstcheck(memcmp(actual, expected, len) == 0, "ft_bzero mismatch for len=%d", len);
+            tstexpect(memcmp(actual, expected, len) == 0, "ft_bzero mismatch for len=%d", len);
             free(s);
             free(actual);
             free(expected);

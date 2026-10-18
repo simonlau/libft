@@ -25,7 +25,7 @@ tstsuite("ft_memchr") {
             n = strlen(s) + 1;
             result = ft_memchr(s, c, n);
             expected = memchr(s, c, n);
-            tstcheck(result == expected, "ft_memchr mismatch for c=%d", c);
+            tstexpect(result == expected, "ft_memchr mismatch for c=%d", c);
             free(s);
         }
     }

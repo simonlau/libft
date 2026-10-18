@@ -23,7 +23,7 @@ tstsuite("ft_strrchr") {
             c = rand() % 256;
             result = ft_strrchr(s, c);
             expected = strrchr(s, c);
-            tstcheck(result == expected, "ft_strrchr mismatch for c=%d", c);
+            tstexpect(result == expected, "ft_strrchr mismatch for c=%d", c);
             free(s);
         }
     }

@@ -31,7 +31,7 @@ tstsuite("ft_strlcpy") {
             expected = calloc(num + 1, sizeof(*expected));
             if (expected == NULL) { free(actual); free(str); continue; }
             snprintf(expected, num + 1, "%s", str);
-            tstcheck(result == strlen(expected) && memcmp(actual, expected, num) == 0,
+            tstexpect(result == strlen(expected) && memcmp(actual, expected, num) == 0,
                      "ft_strlcpy mismatch for len=%zu", num);
             free(actual);
             free(expected);

@@ -23,7 +23,7 @@ tstsuite("ft_atoi") {
             snprintf(buf, sizeof(buf), "%*s%s%d", n % 20, "", sign, val);
             result = ft_atoi(buf);
             expected = atoi(buf);
-            tstcheck(result == expected, "ft_atoi(%d) = %d != %d", val, result, expected);
+            tstexpect(result == expected, "ft_atoi(%d) = %d != %d", val, result, expected);
         }
     }
 }

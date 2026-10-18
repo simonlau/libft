@@ -16,7 +16,7 @@ tstsuite("ft_tolower") {
             c = (unsigned char)rand();
             result = ft_tolower(c);
             expected = tolower(c);
-            tstcheck(result == expected, "ft_tolower(%d) = %d != %d", c, result, expected);
+            tstexpect(result == expected, "ft_tolower(%d) = %d != %d", c, result, expected);
         }
     }
 }

@@ -10,9 +10,9 @@ tstsuite("ft_strjoin") {
         char *result;
 
         result = ft_strjoin(s1, s2);
-        tstcheck(result != NULL, "ft_strjoin NULL");
+        tstexpect(result != NULL, "ft_strjoin NULL");
         if (result != NULL) {
-            tstcheck(strcmp(result, "abcdef") == 0, "ft_strjoin content");
+            tstexpect(strcmp(result, "abcdef") == 0, "ft_strjoin content");
             free(result);
         }
     }
@@ -23,9 +23,9 @@ tstsuite("ft_strjoin") {
 
         left = ft_strjoin("", "");
         right = ft_strjoin("", "");
-        tstcheck(left != NULL && right != NULL, "edge case NULL");
+        tstexpect(left != NULL && right != NULL, "edge case NULL");
         if (left != NULL && right != NULL) {
-            tstcheck(strcmp(left, "") == 0 && strcmp(left, right) == 0,
+            tstexpect(strcmp(left, "") == 0 && strcmp(left, right) == 0,
                      "edge case failed: empty join");
             free(left);
             free(right);

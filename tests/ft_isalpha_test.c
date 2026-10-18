@@ -16,7 +16,7 @@ tstsuite("ft_isalpha") {
             c = (unsigned char)rand();
             result = ft_isalpha(c);
             expected = isalpha(c);
-            tstcheck((expected == 0 && result == 0) || (expected != 0 && result == 1),
+            tstexpect((expected == 0 && result == 0) || (expected != 0 && result == 1),
                      "ft_isalpha(%d) = %d != %d", c, result, expected);
         }
     }
