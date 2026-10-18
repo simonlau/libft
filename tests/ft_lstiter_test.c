@@ -20,18 +20,15 @@ static void	noop(void *content)
 tstsuite("ft_lstiter") {
     tstcase("iter invokes callback once per node") {
         int		i;
-		int		val;
+		int		arr[3];
 		t_list	*head;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
-            head = NULL;
-            val = rand();
-            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
-            val = rand();
-            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
-            val = rand();
-            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
+            arr[0] = rand();
+            arr[1] = rand();
+            arr[2] = rand();
+            head = make_lst(arr, 3);
             g_calls = 0;
             ft_lstiter(head, change);
             tstexpect(g_calls == 3, "ft_lstiter: callback called 3 times");

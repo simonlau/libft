@@ -1,4 +1,12 @@
+#include "libft.h"
 #include <stdlib.h>
+#include <stdint.h>
+#include "test.h"
+
+static void	del_noop(void *content)
+{
+	(void)content;
+}
 
 char	*make_rand_str(void)
 {
@@ -16,4 +24,26 @@ char	*make_rand_str(void)
 		s[j] = (char)(rand() % 95 + 32);
 	s[len] = '\0';
 	return (s);
+}
+
+t_list	*make_lst(int *arr, int size)
+{
+	t_list	*head;
+	t_list	*node;
+	int		i;
+
+	head = NULL;
+	i = 0;
+	while (i < size)
+	{
+		node = ft_lstnew((void *)(intptr_t)arr[i]);
+		if (node == NULL)
+		{
+			ft_lstclear(&head, del_noop);
+			return (NULL);
+		}
+		ft_lstadd_back(&head, node);
+		i++;
+	}
+	return (head);
 }
