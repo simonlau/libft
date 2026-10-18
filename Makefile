@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/10/18 09:43:57 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/10/18 17:15:09 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,10 +90,6 @@ $(TEST_DIR)/%: $(TEST_DIR)/%.c $(TEST_DIR)/test.h $(TEST_DIR)/test_utils.c libft
 test: clean-tests
 	$(MAKE) build-tests TEST_CFLAGS="$(CFLAGS) $(SANFLAGS) -I. -I$(TEST_DIR)"
 	@for t in $(TEST_BINS); do ASAN_OPTIONS=allocator_may_return_null=1 ./$$t --report-error || exit 1; done
-
-run-tests: clean-tests
-	$(MAKE) build-tests TEST_CFLAGS="$(CFLAGS) $(SANFLAGS) -I. -I$(TEST_DIR)"
-	@for t in $(TEST_BINS); do ASAN_OPTIONS=allocator_may_return_null=1 ./$$t || exit 1; done
 
 clean-tests:
 	rm -f $(TEST_BINS)
