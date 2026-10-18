@@ -47,3 +47,20 @@ t_list	*make_lst(int *arr, int size)
 	}
 	return (head);
 }
+
+int	*make_rand_int_arr(int size)
+{
+	int	*arr;
+	int	i;
+
+	arr = malloc(sizeof(int) * (size_t)size);
+	if (arr == NULL)
+		return (NULL);
+	i = 0;
+	while (i < size)
+	{
+		arr[i] = rand();
+		i++;
+	}
+	return (arr);
+}
