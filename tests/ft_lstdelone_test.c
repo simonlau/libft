@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "tst.h"
 #include <stdlib.h>
+#include <stdint.h>
 #include "test.h"
 
 static void	noop(void *content)
@@ -11,19 +12,20 @@ static void	noop(void *content)
 tstsuite("ft_lstdelone") {
     tstcase("lstdelone frees a single node without crashing") {
         int		i;
-		char	*str;
+		int		val;
+		void	*content;
 		t_list	*result;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
-            str = make_rand_str();
-            result = ft_lstnew(str);
+            val = rand();
+            content = (void *)(intptr_t)val;
+            result = ft_lstnew(content);
             if (result != NULL)
             {
-                tstexpect(result->content == str, "ft_lstdelone: content");
+                tstexpect(result->content == content, "ft_lstdelone: content");
                 ft_lstdelone(result, noop);
             }
-            free(str);
         }
     }
 }

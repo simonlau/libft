@@ -1,6 +1,7 @@
 #include "libft.h"
 #include "tst.h"
 #include <stdlib.h>
+#include <stdint.h>
 #include "test.h"
 
 static void	noop(void *content)
@@ -11,30 +12,25 @@ static void	noop(void *content)
 tstsuite("ft_lstlast") {
     tstcase("last returns the tail node") {
         int		i;
-		char	*a;
-		char	*b;
-		char	*c;
+		int		val;
 		t_list	*head;
 		t_list	*last;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
-            a = make_rand_str();
-            b = make_rand_str();
-            c = make_rand_str();
             head = NULL;
             tstexpect(ft_lstlast(head) == NULL, "ft_lstlast: empty list");
-            ft_lstadd_front(&head, ft_lstnew(a));
+            val = rand();
+            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
             tstexpect(ft_lstlast(head) == head, "ft_lstlast: one node");
             last = head;
-            ft_lstadd_front(&head, ft_lstnew(b));
+            val = rand();
+            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
             tstexpect(ft_lstlast(head) == last, "ft_lstlast: two nodes");
-            ft_lstadd_front(&head, ft_lstnew(c));
+            val = rand();
+            ft_lstadd_front(&head, ft_lstnew((void *)(intptr_t)val));
             tstexpect(ft_lstlast(head) == last, "ft_lstlast: three nodes");
             ft_lstclear(&head, noop);
-            free(a);
-            free(b);
-            free(c);
         }
     }
 }
