@@ -21,7 +21,7 @@ tstsuite("ft_bzero") {
                 s[j] = (char)(rand() % 95 + 32);
             s[len] = '\0';
             actual = strdup(s);
-            expected = calloc(len, len * sizeof(*expected));
+            expected = calloc(len, sizeof(*expected));
             if (expected == NULL) { free(s); free(actual); continue; }
             ft_bzero(actual, len);
             tstexpect(memcmp(actual, expected, len) == 0, "ft_bzero mismatch for len=%d", len);

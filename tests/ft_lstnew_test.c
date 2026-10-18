@@ -23,5 +23,13 @@ tstsuite("ft_lstnew") {
                 free(result);
             }
         }
+        result = ft_lstnew(NULL);
+        tstexpect(result != NULL, "ft_lstnew: NULL content returns node");
+        if (result != NULL)
+        {
+            tstexpect(result->content == NULL, "ft_lstnew: NULL content");
+            tstexpect(result->next == NULL, "ft_lstnew: NULL content next is NULL");
+            free(result);
+        }
     }
 }

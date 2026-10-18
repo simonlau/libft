@@ -6,16 +6,16 @@
 
 static char	f_map(unsigned int i, char c)
 {
-	(void)i;
 	(void)c;
-	return ('?');
+	return ((char)('A' + (i % 26)));
 }
 
 tstsuite("ft_strmapi") {
-    tstcase("property maps every char to '?'") {
+    tstcase("property maps every char based on index") {
         char	*s;
         char	*result;
         char	*expected;
+        size_t	len;
         int		i;
 
         srand(SEED);
@@ -23,19 +23,32 @@ tstsuite("ft_strmapi") {
             s = make_rand_str();
             if (s == NULL)
                 continue ;
+            len = strlen(s);
             result = ft_strmapi(s, f_map);
-            expected = calloc(1 + strlen(s), sizeof(char));
-            if (expected == NULL) {
+            expected = malloc(len + 1);
+            if (result == NULL || expected == NULL) {
                 free(result);
+                free(expected);
                 free(s);
                 continue ;
             }
-            memset(expected, '?', strlen(s));
+            for (size_t j = 0; j < len; j++)
+                expected[j] = (char)('A' + (j % 26));
+            expected[len] = '\0';
             tstexpect(result != NULL && strcmp(expected, result) == 0,
-                "ft_strmapi(%s) != all-'?'", s);
+                "ft_strmapi(%s) != index-based map", s);
             free(result);
             free(expected);
             free(s);
         }
+    }
+
+    tstcase("edge NULL string") {
+        char	*result;
+
+        result = ft_strmapi(NULL, f_map);
+        tstexpect(result != NULL && result[0] == '\0',
+            "ft_strmapi(NULL, f) returns valid empty string");
+        free(result);
     }
 }

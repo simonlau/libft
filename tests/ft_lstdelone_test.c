@@ -27,5 +27,7 @@ tstsuite("ft_lstdelone") {
                 ft_lstdelone(result, noop);
             }
         }
+        ft_lstdelone(NULL, noop);
+        tstexpect(1, "ft_lstdelone: NULL list does not crash");
     }
 }

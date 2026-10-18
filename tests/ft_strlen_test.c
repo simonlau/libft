@@ -28,7 +28,7 @@ tstsuite("ft_strlen")
 		tstsection("Check bounds")
 		{
 			tstexpect((expected = strlen(tstcurdata)) == (result = ft_strlen(tstcurdata)),
-				"ft_strlen(%s) = %zu != %zu", s, result, expected);
+				"ft_strlen(%s) = %zu != %zu", tstcurdata, result, expected);
 		}
 	}
 }
