@@ -24,22 +24,23 @@ tstsuite("ft_itoa") {
     }
 
     tstcase("edge extreme values") {
-        const char *cases[] = {
-            "0",      /* 0 */
-            "1",      /* 1 */
-            "-1",     /* -1 */
-            "2147483647",   /* INT_MAX */
-            "-2147483648",  /* INT_MIN */
+        struct {
+            int            val;
+            const char    *expected;
+        } tstdata[] = {
+            { 0,          "0" },
+            { 1,          "1" },
+            { -1,         "-1" },
+            { INT_MAX,    "2147483647" },
+            { INT_MIN,    "-2147483648" },
         };
-        int         vals[] = { 0, 1, -1, INT_MAX, INT_MIN };
-        size_t      n = sizeof(cases) / sizeof(cases[0]);
         char       *result;
-        int         i;
 
-        for (i = 0; i < (int)n; i++) {
-            result = ft_itoa(vals[i]);
-            tstexpect(result != NULL && strcmp(result, cases[i]) == 0,
-                "ft_itoa(%d) = %s != %s", vals[i], result ? result : "(null)", cases[i]);
+        tstsection("edge extreme values")
+        {
+            result = ft_itoa(tstcurdata.val);
+            tstexpect(result != NULL && strcmp(result, tstcurdata.expected) == 0,
+                "ft_itoa(%d) = %s != %s", tstcurdata.val, result ? result : "(null)", tstcurdata.expected);
             free(result);
         }
     }
