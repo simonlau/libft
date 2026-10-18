@@ -12,7 +12,7 @@ tstsuite("ft_isascii") {
         int expected;
 
         srand(SEED);
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             c = (unsigned char)rand();
             result = ft_isascii(c);
             expected = isascii(c);

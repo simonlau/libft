@@ -13,7 +13,7 @@ tstsuite("ft_bzero") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             len = rand() % 64;
             s = malloc(len + 1);
             if (s == NULL) continue;

@@ -14,7 +14,7 @@ tstsuite("ft_memcpy") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             len = rand() % 64;
             str = malloc(len + 1);
             if (str == NULL) continue;

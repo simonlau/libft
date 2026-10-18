@@ -16,7 +16,7 @@ tstsuite("ft_atoi") {
 
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             int val = rand() % INT_MAX - (rand() % 2);
             n = (unsigned int)val;
             sign = n % 3 == 0 ? "+" : (n % 3 == 1 ? "-" : "");

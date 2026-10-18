@@ -13,7 +13,7 @@ tstsuite("ft_itoa") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             num = rand() % INT_MAX - (rand() % 2);
             result = ft_itoa(num);
             if (result == NULL) continue;

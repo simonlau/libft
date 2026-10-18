@@ -15,7 +15,7 @@ tstsuite("ft_memmove") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             int blen = rand() % 64 + 1;
             buf = malloc(blen + 1);
             if (buf == NULL) continue;

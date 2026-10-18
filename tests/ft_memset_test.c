@@ -14,7 +14,7 @@ tstsuite("ft_memset") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             len = rand() % 64;
             b = malloc(len + 1);
             if (b == NULL) continue;

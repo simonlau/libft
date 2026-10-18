@@ -12,7 +12,7 @@ tstsuite("ft_isdigit") {
         int expected;
 
         srand(SEED);
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             c = (unsigned char)rand();
             result = ft_isdigit(c);
             expected = isdigit(c);

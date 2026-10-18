@@ -14,7 +14,7 @@ tstsuite("ft_strncmp") {
         
         srand(SEED);
         int i;
-        for (i = 0; i < 2000; i++) {
+        for (i = 0; i < TRIALS; i++) {
             int slen1 = rand() % 64;
             int slen2 = rand() % 64;
             s1 = malloc(slen1 + 1);
