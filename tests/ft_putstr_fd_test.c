@@ -39,13 +39,13 @@ tstsuite("ft_putstr_fd") {
                 free(s);
                 continue ;
             }
-            ft_putstr_fd(s, fds[1]);
-            close(fds[1]);
+            ft_putstr_fd(s, fds[PIPE_WRITE_END]);
+            close(fds[PIPE_WRITE_END]);
             total = 0;
             read_err = 0;
             while (total < len)
             {
-                r = read(fds[0], out + total, len - total);
+                r = read(fds[PIPE_READ_END], out + total, len - total);
                 if (r == 0)
                     break ;
                 if (r < 0)
@@ -60,7 +60,7 @@ tstsuite("ft_putstr_fd") {
                 extra = 0;
                 while (1)
                 {
-                    r = read(fds[0], stack, sizeof(stack));
+                    r = read(fds[PIPE_READ_END], stack, sizeof(stack));
                     if (r == 0)
                         break ;
                     if (r < 0)
@@ -71,7 +71,7 @@ tstsuite("ft_putstr_fd") {
                     extra += (size_t)r;
                 }
             }
-            close(fds[0]);
+            close(fds[PIPE_READ_END]);
             ok = 1;
             if (read_err)
                 ok = 0;

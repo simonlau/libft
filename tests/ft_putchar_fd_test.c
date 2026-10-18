@@ -23,17 +23,17 @@ tstsuite("ft_putchar_fd") {
             c = (char)rand();
             if (pipe(fds) != 0)
                 continue ;
-            ft_putchar_fd(c, fds[1]);
-            close(fds[1]);
+            ft_putchar_fd(c, fds[PIPE_WRITE_END]);
+            close(fds[PIPE_WRITE_END]);
             total = 0;
             while (total < 1)
             {
-                r = read(fds[0], &out + total, 1 - total);
+                r = read(fds[PIPE_READ_END], &out + total, 1 - total);
                 if (r == 0)
                     break ;
                 if (r < 0)
                 {
-                    close(fds[0]);
+                    close(fds[PIPE_READ_END]);
                     continue ;
                 }
                 total += (size_t)r;
@@ -41,17 +41,17 @@ tstsuite("ft_putchar_fd") {
             more = 0;
             while (1)
             {
-                r = read(fds[0], extra, sizeof(extra));
+                r = read(fds[PIPE_READ_END], extra, sizeof(extra));
                 if (r == 0)
                     break ;
                 if (r < 0)
                 {
-                    close(fds[0]);
+                    close(fds[PIPE_READ_END]);
                     continue ;
                 }
                 more += (size_t)r;
             }
-            close(fds[0]);
+            close(fds[PIPE_READ_END]);
             ok = (total == 1 && more == 0 && memcmp(&out, &c, 1) == 0);
             tstexpect(ok,
                 "ft_putchar_fd(%d) wrote %zu bytes, extra %zu", c, total, more);
