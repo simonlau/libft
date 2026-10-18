@@ -8,15 +8,13 @@
 
 tstsuite("ft_putchar_fd") {
     tstcase("property writes exactly one byte to the fd") {
-        char	c;
-        int		fds[2];
-        char	out;
-        char	extra[16];
-        size_t	total;
-        ssize_t	r;
-        size_t	more;
-        int		i;
-        int		ok;
+		char	c;
+		int		fds[2];
+		char	out;
+		ssize_t	total;
+		size_t	more;
+		int		i;
+		int		ok;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
@@ -25,36 +23,16 @@ tstsuite("ft_putchar_fd") {
                 continue ;
             ft_putchar_fd(c, fds[PIPE_WRITE_END]);
             close(fds[PIPE_WRITE_END]);
-            total = 0;
-            while (total < 1)
+            total = capture_begin(fds[PIPE_READ_END], &out, 1);
+            if (total < 0)
             {
-                r = read(fds[PIPE_READ_END], &out + total, 1 - total);
-                if (r == 0)
-                    break ;
-                if (r < 0)
-                {
-                    close(fds[PIPE_READ_END]);
-                    continue ;
-                }
-                total += (size_t)r;
+                close(fds[PIPE_READ_END]);
+                continue ;
             }
-            more = 0;
-            while (1)
-            {
-                r = read(fds[PIPE_READ_END], extra, sizeof(extra));
-                if (r == 0)
-                    break ;
-                if (r < 0)
-                {
-                    close(fds[PIPE_READ_END]);
-                    continue ;
-                }
-                more += (size_t)r;
-            }
-            close(fds[PIPE_READ_END]);
+            more = capture_end(fds[PIPE_READ_END]);
             ok = (total == 1 && more == 0 && memcmp(&out, &c, 1) == 0);
             tstexpect(ok,
-                "ft_putchar_fd(%d) wrote %zu bytes, extra %zu", c, total, more);
+                "ft_putchar_fd(%d) wrote %zd bytes, extra %zu", c, total, more);
         }
     }
 }

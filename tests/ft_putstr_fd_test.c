@@ -13,12 +13,9 @@ tstsuite("ft_putstr_fd") {
         char	stack[4096];
         char	*out;
         size_t	len;
-        size_t	total;
-        ssize_t	r;
-        size_t	extra;
+        ssize_t	total;
         int		i;
         int		ok;
-        int		read_err;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
@@ -41,48 +38,20 @@ tstsuite("ft_putstr_fd") {
             }
             ft_putstr_fd(s, fds[PIPE_WRITE_END]);
             close(fds[PIPE_WRITE_END]);
-            total = 0;
-            read_err = 0;
-            while (total < len)
-            {
-                r = read(fds[PIPE_READ_END], out + total, len - total);
-                if (r == 0)
-                    break ;
-                if (r < 0)
-                {
-                    read_err = 1;
-                    break ;
-                }
-                total += (size_t)r;
-            }
-            if (!read_err)
-            {
-                extra = 0;
-                while (1)
-                {
-                    r = read(fds[PIPE_READ_END], stack, sizeof(stack));
-                    if (r == 0)
-                        break ;
-                    if (r < 0)
-                    {
-                        read_err = 1;
-                        break ;
-                    }
-                    extra += (size_t)r;
-                }
-            }
-            close(fds[PIPE_READ_END]);
-            ok = 1;
-            if (read_err)
+            total = capture_begin(fds[PIPE_READ_END], out, len);
+            if (total < 0)
                 ok = 0;
-            else if (total != len || extra != 0
-                     || (len > 0 && memcmp(out, s, len) != 0))
-                ok = 0;
+            else
+            {
+                size_t	more = capture_end(fds[PIPE_READ_END]);
+                ok = ((size_t)total == len && more == 0
+                     && (len == 0 || memcmp(out, s, len) == 0));
+            }
             if (out != stack)
                 free(out);
             free(s);
             tstexpect(ok,
-                "ft_putstr_fd(%s) wrote %zu bytes, extra %zu", s, total, extra);
+                "ft_putstr_fd(%s) wrote %zd bytes", s, total);
         }
     }
 }

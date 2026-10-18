@@ -1,6 +1,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include <unistd.h>
 #include "test.h"
 
 static void	del_noop(void *content)
@@ -69,4 +70,46 @@ int	*make_rand_int_arr(int size)
 		i++;
 	}
 	return (arr);
+}
+
+/* Read up to `count` bytes from `fd` into `buf`.
+ * Returns the number of bytes read, or -1 on read error. */
+ssize_t	capture_begin(int fd, void *buf, size_t count)
+{
+	size_t	total;
+	ssize_t	r;
+
+	total = 0;
+	while (total < count)
+	{
+		r = read(fd, buf + total, count - total);
+		if (r == 0)
+			break ;
+		if (r < 0)
+			return (-1);
+		total += (size_t)r;
+	}
+	return ((ssize_t)total);
+}
+
+/* Drain any remaining bytes from `fd`, then close it.
+ * Returns the number of extra bytes read. */
+size_t	capture_end(int fd)
+{
+	char	discard[4096];
+	ssize_t	r;
+	size_t	extra;
+
+	extra = 0;
+	while (1)
+	{
+		r = read(fd, discard, sizeof(discard));
+		if (r == 0)
+			break ;
+		if (r < 0)
+			break ;
+		extra += (size_t)r;
+	}
+	close(fd);
+	return (extra);
 }
