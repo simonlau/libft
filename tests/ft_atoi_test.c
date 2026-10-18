@@ -7,7 +7,7 @@
 #include <limits.h>
 
 tstsuite("ft_atoi") {
-    tstcase("property test matches atoi oracle", i) {
+    tstcase("property test matches atoi oracle") {
         unsigned int n;
         char buf[256];
         const char *sign;

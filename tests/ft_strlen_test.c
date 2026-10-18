@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_strlen") {
-    tstcase("property test matches strlen oracle", i) {
+    tstcase("property test matches strlen oracle") {
         char *s;
         size_t result;
         size_t expected;

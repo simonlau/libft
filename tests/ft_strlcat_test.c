@@ -8,13 +8,14 @@
 #endif
 
 tstsuite("ft_strlcat") {
-    tstcase("property test matches strlcat oracle", i) {
+    tstcase("property test matches strlcat oracle") {
         char *dst;
         char *src;
         uint16_t num;
         char *actual;
         char *expected;
         size_t result;
+        size_t expected_result;
         
         srand(SEED);
         int i;
@@ -38,7 +39,8 @@ tstsuite("ft_strlcat") {
             if (expected == NULL) { free(actual); free(dst); free(src); continue; }
             snprintf(expected, num, "%s", dst);
             result = ft_strlcat(actual, src, num);
-            tstexpect(result == strlen(expected) && memcmp(actual, expected, num) == 0,
+            expected_result = strlcat(expected, src, num);
+            tstexpect(result == expected_result && memcmp(actual, expected, num) == 0,
                      "ft_strlcat mismatch for num=%u", num);
             free(actual);
             free(expected);

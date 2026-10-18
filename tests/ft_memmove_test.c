@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_memmove") {
-    tstcase("property test matches memmove oracle", i) {
+    tstcase("property test matches memmove oracle") {
         char *buf;
         int config;
         size_t len;

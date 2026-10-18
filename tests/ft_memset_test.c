@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_memset") {
-    tstcase("property test matches memset oracle", i) {
+    tstcase("property test matches memset oracle") {
         char *b;
         int c;
         int len;

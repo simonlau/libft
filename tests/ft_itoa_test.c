@@ -6,7 +6,7 @@
 #include <limits.h>
 
 tstsuite("ft_itoa") {
-    tstcase("roundtrip from ft_itoa to atoi", i) {
+    tstcase("roundtrip from ft_itoa to atoi") {
         int num;
         char *result;
         int expected;

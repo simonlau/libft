@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_bzero") {
-    tstcase("property test matches calloc oracle", i) {
+    tstcase("property test matches calloc oracle") {
         char *s;
         int len;
         char *expected;

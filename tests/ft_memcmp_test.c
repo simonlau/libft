@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_memcmp") {
-    tstcase("property test matches memcmp oracle", i) {
+    tstcase("property test matches memcmp oracle") {
         char *s1;
         char *s2;
         size_t len;

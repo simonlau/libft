@@ -5,7 +5,7 @@
 #include <string.h>
 
 tstsuite("ft_strrchr") {
-    tstcase("property test matches strrchr oracle", i) {
+    tstcase("property test matches strrchr oracle") {
         char *s;
         int c;
         char *expected;

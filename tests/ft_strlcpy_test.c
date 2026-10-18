@@ -8,12 +8,13 @@
 #endif
 
 tstsuite("ft_strlcpy") {
-    tstcase("property test matches strlcpy oracle", i) {
+    tstcase("property test matches strlcpy oracle") {
         char *str;
         size_t num;
         char *actual;
         char *expected;
         size_t result;
+        size_t expected_result;
         
         srand(SEED);
         int i;
@@ -30,8 +31,8 @@ tstsuite("ft_strlcpy") {
             result = ft_strlcpy(actual, str, num);
             expected = calloc(num + 1, sizeof(*expected));
             if (expected == NULL) { free(actual); free(str); continue; }
-            snprintf(expected, num + 1, "%s", str);
-            tstexpect(result == strlen(expected) && memcmp(actual, expected, num) == 0,
+            expected_result = strlcpy(expected, str, num);
+            tstexpect(result == expected_result && memcmp(actual, expected, num) == 0,
                      "ft_strlcpy mismatch for len=%zu", num);
             free(actual);
             free(expected);
