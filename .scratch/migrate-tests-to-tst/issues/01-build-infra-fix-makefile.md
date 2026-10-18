@@ -27,6 +27,7 @@ Test files (22 tst-converted):
 - Switched all assertions from `tstcheck` to `tstexpect` so passing assertions are silenced (only failures print).
 - Removed the stray `, i` second argument from `tstcase(...)` calls — tst treats extra args as tags, and with no command-line filter tagged cases are **skipped**, so those tests were never running (hidden bug exposed by `tstexpect`).
 - Fixed broken oracle logic in `ft_strlcat_test.c` and `ft_strlcpy_test.c`: `expected` was set to just the source string instead of the system `strlcat`/`strlcpy` result; now compared against the system-function oracle.
+- Extracted `make_rand_str()` helper from 5 test files into `tests/test_utils.c`, declared in `tests/test.h`; Makefile per-test rule now compiles `tests/test_utils.c` with each binary.
 
 Verification:
 - `make all`, `make test` (exit 0, 22 suites × 0 FAIL), `make run-tests` (exit 0, no ASAN/leak errors), `make clean`, `make all-tests`, `make run-all` all pass.

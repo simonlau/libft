@@ -84,8 +84,8 @@ TEST_CFLAGS = $(CFLAGS) -I. -I$(TEST_DIR)
 
 build-tests: $(TST_BINS)
 
-$(TEST_DIR)/%: $(TEST_DIR)/%.c $(TEST_DIR)/test.h libft.h $(NAME) | clone-tst
-	$(CC) $(TEST_CFLAGS) $< $(NAME) -o $@
+$(TEST_DIR)/%: $(TEST_DIR)/%.c $(TEST_DIR)/test.h $(TEST_DIR)/test_utils.c libft.h $(NAME) | clone-tst
+	$(CC) $(TEST_CFLAGS) $< tests/test_utils.c $(NAME) -o $@
 
 test: build-tests
 	@for t in $(TST_BINS); do ./$$t --report-error || exit 1; done
