@@ -20,15 +20,12 @@ static void	noop(void *content)
 tstsuite("ft_lstmap") {
     tstcase("map invokes function once per node") {
         int		i;
-		int		*arr;
 		t_list	*head;
 		t_list	*result;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
-            arr = make_rand_int_arr(3);
-            head = make_lst(arr, 3);
-            free(arr);
+            head = make_rand_lst(3);
             g_calls = 0;
             result = ft_lstmap(head, change, noop);
             if (result != NULL)

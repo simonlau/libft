@@ -26,12 +26,16 @@ char	*make_rand_str(void)
 	return (s);
 }
 
-t_list	*make_lst(int *arr, int size)
+t_list	*make_rand_lst(int size)
 {
+	int		*arr;
 	t_list	*head;
 	t_list	*node;
 	int		i;
 
+	arr = make_rand_int_arr(size);
+	if (arr == NULL)
+		return (NULL);
 	head = NULL;
 	i = 0;
 	while (i < size)
@@ -40,11 +44,13 @@ t_list	*make_lst(int *arr, int size)
 		if (node == NULL)
 		{
 			ft_lstclear(&head, del_noop);
+			free(arr);
 			return (NULL);
 		}
 		ft_lstadd_back(&head, node);
 		i++;
 	}
+	free(arr);
 	return (head);
 }
 

@@ -12,7 +12,6 @@ static void	noop(void *content)
 tstsuite("ft_lstclear") {
     tstcase("clear empties the list and NULLs the head") {
         int		i;
-		int		*arr;
 		t_list	*head;
 
         srand(SEED);
@@ -21,9 +20,7 @@ tstsuite("ft_lstclear") {
             ft_lstclear(&head, noop);
             tstexpect(ft_lstsize(head) == 0 && head == NULL,
                      "ft_lstclear: empty list");
-            arr = make_rand_int_arr(3);
-            head = make_lst(arr, 3);
-            free(arr);
+            head = make_rand_lst(3);
             ft_lstclear(&head, noop);
             tstexpect(ft_lstsize(head) == 0 && head == NULL,
                      "ft_lstclear: non-empty list");
