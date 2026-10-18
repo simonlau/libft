@@ -1,30 +1,55 @@
 #include "libft.h"
-#include "tst.h"
 #include "test.h"
+#include "tst.h"
 #include <stdlib.h>
 #include <string.h>
 
-tstsuite("ft_strchr") {
-    tstcase("property test matches strchr oracle") {
-        char *s;
-        int c;
-        char *expected;
-        char *result;
-        
-        srand(SEED);
-        int i;
-        for (i = 0; i < 2000; i++) {
-            int slen = rand() % 64;
-            s = malloc(slen + 1);
-            if (s == NULL) continue;
-            for (int j = 0; j < slen; j++)
-                s[j] = (char)(rand() % 95 + 32);
-            s[slen] = '\0';
-            c = rand() % 256;
-            result = ft_strchr(s, c);
-            expected = strchr(s, c);
-            tstexpect(result == expected, "ft_strchr mismatch for c=%d", c);
-            free(s);
-        }
-    }
+static char	*make_rand_str(void)
+{
+	char	*s;
+	int		len;
+
+	s = malloc(1);
+	if (s == NULL)
+		return (NULL);
+	len = rand() % 64;
+	s = realloc(s, len + 1);
+	if (s == NULL)
+		return (NULL);
+	for (int j = 0; j < len; j++)
+		s[j] = (char)(rand() % 95 + 32);
+	s[len] = '\0';
+	return (s);
+}
+
+tstsuite("ft_strchr")
+{
+	char	*s;
+	int		c;
+	char	*expected;
+	char	*result;
+	int		i;
+	char	*tstdata[] = {"", "x", "abc", "hello world", "abc\0def"};
+
+	srand(SEED);
+	tstcase("property test matches strchr oracle")
+	{
+		for (i = 0; i < TRIALS; i++)
+		{
+			s = make_rand_str();
+			c = rand() % 256;
+			tstexpect((expected = strchr(s, c)) == (result = ft_strchr(s, c)),
+				"ft_strchr(%s, %d)", s, c);
+			free(s);
+		}
+	}
+	tstcase("check special cases")
+	{
+		tstsection("Check bounds")
+		{
+			c = rand() % 256;
+			tstexpect((expected = strchr(tstcurdata, c)) == (result = ft_strchr(tstcurdata, c)),
+				"ft_strchr(%s, %d)", tstcurdata, c);
+		}
+	}
 }
