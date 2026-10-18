@@ -6,7 +6,7 @@
 #    By: simon.lau <simon.lau@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/08/07 15:20:10 by simon.lau         #+#    #+#              #
-#    Updated: 2026/10/03 15:52:56 by simon.lau        ###   ########.fr        #
+#    Updated: 2026/10/18 09:11:10 by simon.lau        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,16 @@ CC := cc
 AR := ar
 ARFLAGS := rcs
 
-THEFT_URL := https://github.com/silentbicycle/theft.git
-THEFT_DIR := theft
+TST_URL := https://github.com/rdentato/tst.git
+TST_DIR := tst
 
-CFLAGS := -Wall -Wextra -Werror -I$(THEFT_DIR)/inc -I.
-CFLAGS += -g3 -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=all
+CFLAGS := -Wall -Wextra -Werror -I$(TST_DIR)/src -I.
+SANFLAGS = -fsanitize=address,undefined -fno-omit-frame-pointer -g -fno-sanitize-recover=all
 LDFLAGS += -Wl,--as-needed -lbsd
 
-TESTS := $(basename $(notdir $(wildcard tests/*_test.c)))
+TEST_DIR := tests
+TEST_SRCS := $(wildcard $(TEST_DIR)/test_*.c)
+TEST_BINS := $(TEST_SRCS:.c=)
 SRCS := ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -69,35 +71,38 @@ OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 NAME := libft.a
 
-.PHONY: all clean fclean re test run-tests coverage clone-theft wipe all-tests run-all
+.PHONY: all clean fclean re test run-tests coverage clone-tst wipe all-tests run-all
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $(ARFLAGS) $@ $^
 
-test: $(TESTS)
+test: $(NAME)
+	@for t in $(TEST_BINS); do \
+		$(CC) $(CFLAGS) $(SANFLAGS) -I$(LIB_DIR) -I$(TEST_DIR) $$t.c $(filter-out main.o,$(OBJS)) $(LIB) -o $$t && $$t || exit 1; \
+	done
 
-ASAN_OPTIONS := allocator_may_return_null=1
-%_test: %.c tests/%_test.c tests/registry.c $(NAME) $(THEFT_DIR)/build/libtheft.a
-	$(CC) $(CFLAGS) -o $@ $^ -lm
+# ASAN_OPTIONS := allocator_may_return_null=1
+# %_test: %.c tests/%_test.c tests/registry.c libft.h $(NAME) $(TST_DIR)/src/tst.h
+# 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
-all-tests: tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a
-	$(CC) $(CFLAGS) -Itests -DALL_TESTS -o $@ tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(THEFT_DIR)/build/libtheft.a -lm
+# all-tests: tests/all-tests.c tests/registry.c libft.h $(wildcard tests/ft_*.c) $(NAME) $(TST_DIR)/src/tst.h
+# 	$(CC) $(CFLAGS) -Itests -DALL_TESTS -o $@ tests/all-tests.c tests/registry.c $(wildcard tests/ft_*.c) $(NAME) $(TST_DIR)/src/tst.h -lm
 
-run-all: all-tests
-	ASAN_OPTIONS=$(ASAN_OPTIONS) ./all-tests
+# run-all: all-tests
+# 	ASAN_OPTIONS=$(ASAN_OPTIONS) ./all-tests
 
-$(THEFT_DIR)/build/libtheft.a:
-	$(MAKE) -C $(THEFT_DIR)
+$(TST_DIR)/src/tst.h:
+	$(MAKE) -C $(TST_DIR)
 
 %.o: %.c libft.h
-	$(CC) $(CFLAGS) -MMD -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 -include $(DEPS)
 
-clone-theft:
-	git clone --depth 1 $(THEFT_URL) $(THEFT_DIR)
+clone-tst:
+	git clone --depth 1 $(TST_URL) $(TST_DIR)
 
 clean:
 	rm -f $(OBJS) $(DEPS) $(TESTS)

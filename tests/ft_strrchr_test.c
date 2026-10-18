@@ -1,47 +1,31 @@
-#include "libft.h"
-#include "registry.h"
-#include "theft.h"
+#include "../libft.h"
+#include "tst.h"
+#include <stdlib.h>
 #include <string.h>
 
-static enum theft_trial_res	prop_oracle(struct theft *t, void *arg1, void *arg2)
-{
-	const char	*s;
-	int			c;
-	char		*expected;
-	char		*result;
-
-	(void)t;
-	s = (const char *)arg1;
-	c = *(const int *)arg2;
-	result = ft_strrchr(s, c);
-	expected = strrchr(s, c);
-	if (result == expected)
-		return (THEFT_TRIAL_PASS);
-	return (THEFT_TRIAL_FAIL);
+tstsuite("ft_strrchr") {
+    tstcase("property test matches strrchr oracle", i) {
+        char *s;
+        int c;
+        char *expected;
+        char *result;
+        
+        srand(0);
+        for (i = 0; i < 2000; i++) {
+            int slen = rand() % 64;
+            s = malloc(slen + 1);
+            if (s == NULL) continue;
+            for (int j = 0; j < slen; j++)
+                s[j] = (char)(rand() % 95 + 32);
+            s[slen] = '\0';
+            c = rand() % 256;
+            result = ft_strrchr(s, c);
+            expected = strrchr(s, c);
+            if (result == expected)
+                tstcheck(true, "ft_strrchr OK for c=%d", c);
+            else
+                tstcheck(false, "ft_strrchr mismatch for c=%d", c);
+            free(s);
+        }
+    }
 }
-
-int	ft_strrchr_test(void)
-{
-	enum theft_run_res	res;
-
-	struct theft_run_config cfg = {
-		.prop2 = prop_oracle,
-		.name = __FILE__,
-		.trials = 1000,
-		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
-			theft_get_builtin_type_info(THEFT_BUILTIN_int)},
-	};
-	res = theft_run(&cfg);
-	if (res == THEFT_RUN_PASS)
-		return (EXIT_SUCCESS);
-	return (EXIT_FAILURE);
-}
-
-REGISTER_TEST(1, ft_strrchr_test)
-
-#ifndef ALL_TESTS
-int	main(void)
-{
-	return (ft_strrchr_test());
-}
-#endif
