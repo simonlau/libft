@@ -28,3 +28,12 @@ None resolved yet — see Resolved edge-case fixes below.
 - `ft_strtrim`: added all-trimmed cases requiring a freshly allocated empty (non-NULL) string (`tests/ft_strtrim_test.c`).
 - `make_rand_str`: byte range extended from 32-126 to 1-255 so control and high bytes reach the string tests (`tests/test_utils.c`). Note: the `ft_is*`/`ft_to*` tests already cover the full 0-255 range via `(unsigned char)rand()` and needed no change.
 - Makefile: removed the unused `all-tests`/`run-all` targets and deleted `tests/all-tests.c`, `tests/registry.c`, `tests/registry.h`; `make test` (per-file tst binaries) is now the sole runner.
+
+## Test adapter
+A shared test helper compiled into every test binary through `tests/test_utils.c` and declared in `tests/test.h`; each property test supplies only its per-iteration body (e.g. `run_trials`) or its function-under-test plus expected bytes (e.g. `assert_fd_output`).
+
+## run_trials
+The shared trial-runner adapter: owns `srand(SEED)` and the `TRIALS` loop internally; each test body runs once per iteration and asserts via `tstexpect`; bodies free their own allocations.
+
+## assert_fd_output
+The shared fd-capture adapter: owns pipe → write → close write → capture → drain → compare behind one seam; each test passes a `void (*fn)(void *payload, int fd)` wrapper plus expected bytes; returns void and reports mismatch via `tstexpect`.
