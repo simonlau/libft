@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,7 +12,8 @@ tstsuite("ft_memcmp") {
         int expected;
         int result;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             int slen1 = rand() % 64;
             int slen2 = rand() % 64;
@@ -27,12 +29,9 @@ tstsuite("ft_memcmp") {
             len = strlen(s1) < strlen(s2) ? strlen(s1) : strlen(s2);
             expected = memcmp(s1, s2, len);
             result = ft_memcmp(s1, s2, len);
-            if ((expected == 0 && result == 0) ||
-                (expected > 0 && result > 0) ||
-                (expected < 0 && result < 0))
-                tstcheck(true, "ft_memcmp OK");
-            else
-                tstcheck(false, "ft_memcmp mismatch");
+            tstcheck((expected == 0 && result == 0) ||
+                     (expected > 0 && result > 0) ||
+                     (expected < 0 && result < 0), "ft_memcmp mismatch");
             free(s1);
             free(s2);
         }

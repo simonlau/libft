@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,7 +12,8 @@ tstsuite("ft_memchr") {
         char *result;
         size_t n;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             int slen = rand() % 64;
             s = malloc(slen + 1);
@@ -23,10 +25,7 @@ tstsuite("ft_memchr") {
             n = strlen(s) + 1;
             result = ft_memchr(s, c, n);
             expected = memchr(s, c, n);
-            if (result == expected)
-                tstcheck(true, "ft_memchr OK for c=%d", c);
-            else
-                tstcheck(false, "ft_memchr mismatch for c=%d", c);
+            tstcheck(result == expected, "ft_memchr mismatch for c=%d", c);
             free(s);
         }
     }

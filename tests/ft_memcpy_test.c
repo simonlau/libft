@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,7 +12,8 @@ tstsuite("ft_memcpy") {
         char *actual;
         char *result;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             len = rand() % 64;
             str = malloc(len + 1);
@@ -24,10 +26,8 @@ tstsuite("ft_memcpy") {
             if (actual == NULL || expected == NULL) { free(str); free(actual); free(expected); continue; }
             memcpy(expected, str, len);
             result = ft_memcpy(actual, str, len);
-            if (memcmp(actual, expected, len) == 0 && result == actual)
-                tstcheck(true, "ft_memcpy OK for len=%d", len);
-            else
-                tstcheck(false, "ft_memcpy mismatch for len=%d", len);
+            tstcheck(memcmp(actual, expected, len) == 0 && result == actual,
+                     "ft_memcpy mismatch for len=%d", len);
             free(str);
             free(actual);
             free(expected);

@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -11,7 +12,8 @@ tstsuite("ft_memset") {
         char *actual;
         char *expected;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             len = rand() % 64;
             b = malloc(len + 1);
@@ -25,10 +27,7 @@ tstsuite("ft_memset") {
             if (expected == NULL) { free(b); free(actual); continue; }
             memset(expected, c, len);
             ft_memset(actual, c, len);
-            if (memcmp(actual, expected, len) == 0)
-                tstcheck(true, "ft_memset OK for len=%d", len);
-            else
-                tstcheck(false, "ft_memset mismatch for len=%d", len);
+            tstcheck(memcmp(actual, expected, len) == 0, "ft_memset mismatch for len=%d", len);
             free(b);
             free(actual);
             free(expected);

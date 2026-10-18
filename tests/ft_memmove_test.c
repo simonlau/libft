@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 
@@ -12,7 +13,8 @@ tstsuite("ft_memmove") {
         char *actual;
         void *result;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             int blen = rand() % 64 + 1;
             buf = malloc(blen + 1);
@@ -29,24 +31,18 @@ tstsuite("ft_memmove") {
             if (config < 0) {
                 memmove(expected + 1, expected, len);
                 result = ft_memmove(actual + 1, actual, len);
-                if (result == actual + 1 && memcmp(actual, expected, len + 1) == 0)
-                    tstcheck(true, "ft_memmove backward OK");
-                else
-                    tstcheck(false, "ft_memmove backward mismatch");
+                tstcheck(result == actual + 1 && memcmp(actual, expected, len + 1) == 0,
+                         "ft_memmove backward mismatch");
             } else if (config > 0) {
                 memmove(expected, expected + 1, len);
                 result = ft_memmove(actual, actual + 1, len);
-                if (result == actual && memcmp(actual, expected, len + 1) == 0)
-                    tstcheck(true, "ft_memmove forward OK");
-                else
-                    tstcheck(false, "ft_memmove forward mismatch");
+                tstcheck(result == actual && memcmp(actual, expected, len + 1) == 0,
+                         "ft_memmove forward mismatch");
             } else {
                 memmove(expected, expected, len);
                 result = ft_memmove(actual, actual, len);
-                if (result == actual && memcmp(actual, expected, len + 1) == 0)
-                    tstcheck(true, "ft_memmove same OK");
-                else
-                    tstcheck(false, "ft_memmove same mismatch");
+                tstcheck(result == actual && memcmp(actual, expected, len + 1) == 0,
+                         "ft_memmove same mismatch");
             }
             free(buf);
             free(expected);

@@ -1,5 +1,6 @@
-#include "../libft.h"
+#include "libft.h"
 #include "tst.h"
+#include "test.h"
 #include <stdlib.h>
 #include <string.h>
 #if defined(__GLIBC__)
@@ -14,7 +15,8 @@ tstsuite("ft_strlcpy") {
         char *expected;
         size_t result;
         
-        srand(0);
+        srand(SEED);
+        int i;
         for (i = 0; i < 2000; i++) {
             int slen = rand() % 64;
             str = malloc(slen + 1);
@@ -29,10 +31,8 @@ tstsuite("ft_strlcpy") {
             expected = calloc(num + 1, sizeof(*expected));
             if (expected == NULL) { free(actual); free(str); continue; }
             snprintf(expected, num + 1, "%s", str);
-            if (result == strlen(expected) && memcmp(actual, expected, num) == 0)
-                tstcheck(true, "ft_strlcpy OK for len=%zu", num);
-            else
-                tstcheck(false, "ft_strlcpy mismatch for len=%zu", num);
+            tstcheck(result == strlen(expected) && memcmp(actual, expected, num) == 0,
+                     "ft_strlcpy mismatch for len=%zu", num);
             free(actual);
             free(expected);
             free(str);
