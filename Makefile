@@ -19,13 +19,13 @@ TST_DIR := tst
 
 CFLAGS := -Wall -Wextra -Werror -I$(TST_DIR)/src -I.
 SANFLAGS = -fsanitize=address,undefined -fno-omit-frame-pointer -g -fno-sanitize-recover=all
-LDFLAGS += -Wl,--as-needed -lbsd
+ifeq ($(shell uname -s),Linux)
+    LDFLAGS += -Wl,--as-needed -lbsd
+endif
 
 TEST_DIR := tests
 TEST_SRCS := $(wildcard $(TEST_DIR)/ft_*_test.c)
-TST_SRCS := $(shell grep -l 'include "tst.h"' tests/ft_*_test.c 2>/dev/null)
 TEST_BINS := $(TEST_SRCS:.c=)
-TST_BINS := $(TST_SRCS:.c=)
 SRCS := ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -82,20 +82,21 @@ $(NAME): $(OBJS)
 
 TEST_CFLAGS = $(CFLAGS) -I. -I$(TEST_DIR)
 
-build-tests: $(TST_BINS)
+build-tests: $(TEST_BINS)
 
 $(TEST_DIR)/%: $(TEST_DIR)/%.c $(TEST_DIR)/test.h $(TEST_DIR)/test_utils.c libft.h $(NAME) | clone-tst
-	$(CC) $(TEST_CFLAGS) $< tests/test_utils.c $(NAME) -o $@
+	$(CC) $(TEST_CFLAGS) $< tests/test_utils.c $(NAME) $(LDFLAGS) -o $@
 
-test: build-tests
-	@for t in $(TST_BINS); do ./$$t --report-error || exit 1; done
+test: clean-tests
+	$(MAKE) build-tests TEST_CFLAGS="$(CFLAGS) $(SANFLAGS) -I. -I$(TEST_DIR)"
+	@for t in $(TEST_BINS); do ASAN_OPTIONS=allocator_may_return_null=1 ./$$t --report-error || exit 1; done
 
 run-tests: clean-tests
 	$(MAKE) build-tests TEST_CFLAGS="$(CFLAGS) $(SANFLAGS) -I. -I$(TEST_DIR)"
-	@for t in $(TST_BINS); do ASAN_OPTIONS=allocator_may_return_null=1 ./$$t || exit 1; done
+	@for t in $(TEST_BINS); do ASAN_OPTIONS=allocator_may_return_null=1 ./$$t || exit 1; done
 
 clean-tests:
-	rm -f $(TST_BINS)
+	rm -f $(TEST_BINS)
 
 clone-tst:
 	@if [ ! -d $(TST_DIR) ]; then git clone --depth 1 $(TST_URL) $(TST_DIR); fi
