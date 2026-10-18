@@ -4,11 +4,20 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] `ft_lstnew_test.c` compiles with tst and passes
-- [ ] `ft_lstsize_test.c` compiles with tst and passes
-- [ ] `ft_lstlast_test.c` compiles with tst and passes
-- [ ] `ft_lstadd_back_test.c` compiles with tst and passes
-- [ ] `ft_lstdelone_test.c` compiles with tst and passes
-- [ ] `ft_lstclear_test.c` compiles with tst and passes
+## Answer
+
+Converted all 6 linked-list test files from theft to tst (issue 02). Each uses `tstsuite`/`tstcase` with `tstexpect` assertions, `srand(SEED)` + `TRIALS` (2000) deterministic loops, random strings from `make_rand_str()`, and `noop` del with explicit `free()` of content strings after `ft_lstclear`/`ft_lstdelone` so ASAN reports no leaks. Preserves the original theft property logic verbatim (content/next for `lstnew`; size progression for `lstsize`/`lstadd_back`; tail-node identity for `lstlast`; no-crash del for `lstdelone`; empty+non-empty clear for `lstclear`).
+
+- [x] `ft_lstnew_test.c` compiles with tst and passes
+- [x] `ft_lstsize_test.c` compiles with tst and passes
+- [x] `ft_lstlast_test.c` compiles with tst and passes
+- [x] `ft_lstadd_back_test.c` compiles with tst and passes
+- [x] `ft_lstdelone_test.c` compiles with tst and passes
+- [x] `ft_lstclear_test.c` compiles with tst and passes
+
+Verification:
+- `make test`: exit 0, all 28 tst binaries pass (6 new list suites: 0 FAIL).
+- `make run-tests`: exit 0, ASAN/UBSAN clean, no leaks on the 6 new tests.
+- Norminette on `tests/` is not enforced (pre-commit `files: ^[^/]+\.(c|h)$`); new files match the style of already-converted tests (e.g. `ft_isalpha_test.c`).

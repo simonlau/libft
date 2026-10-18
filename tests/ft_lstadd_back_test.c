@@ -1,75 +1,38 @@
 #include "libft.h"
-#include "registry.h"
-#include "theft.h"
+#include "tst.h"
+#include <stdlib.h>
+#include "test.h"
 
 static void	noop(void *content)
 {
 	(void)content;
-	return ;
 }
 
-static enum theft_trial_res	prop_lstadd_back(struct theft *t, void *arg1,
-		void *arg2, void *arg3)
-{
-	char	*a;
-	char	*b;
-	char	*c;
-	t_list	*head;
+tstsuite("ft_lstadd_back") {
+    tstcase("add_back appends and size increments") {
+        int		i;
+		char	*a;
+		char	*b;
+		char	*c;
+		t_list	*head;
 
-	(void)t;
-	a = (char *)arg1;
-	b = (char *)arg2;
-	c = (char *)arg3;
-	head = NULL;
-	if (ft_lstsize(head) != 0)
-	{
-		return (THEFT_TRIAL_FAIL);
-	}
-	ft_lstadd_back(&head, ft_lstnew(a));
-	if (ft_lstsize(head) != 1)
-	{
-		ft_lstclear(&head, noop);
-		return (THEFT_TRIAL_FAIL);
-	}
-	ft_lstadd_back(&head, ft_lstnew(b));
-	if (ft_lstsize(head) != 2)
-	{
-		ft_lstclear(&head, noop);
-		return (THEFT_TRIAL_FAIL);
-	}
-	ft_lstadd_back(&head, ft_lstnew(c));
-	if (ft_lstsize(head) != 3)
-	{
-		ft_lstclear(&head, noop);
-		return (THEFT_TRIAL_FAIL);
-	}
-	ft_lstclear(&head, noop);
-	return (THEFT_TRIAL_PASS);
+        srand(SEED);
+        for (i = 0; i < TRIALS; i++) {
+            a = make_rand_str();
+            b = make_rand_str();
+            c = make_rand_str();
+            head = NULL;
+            tstexpect(ft_lstsize(head) == 0, "ft_lstadd_back: empty list");
+            ft_lstadd_back(&head, ft_lstnew(a));
+            tstexpect(ft_lstsize(head) == 1, "ft_lstadd_back: one node");
+            ft_lstadd_back(&head, ft_lstnew(b));
+            tstexpect(ft_lstsize(head) == 2, "ft_lstadd_back: two nodes");
+            ft_lstadd_back(&head, ft_lstnew(c));
+            tstexpect(ft_lstsize(head) == 3, "ft_lstadd_back: three nodes");
+            ft_lstclear(&head, noop);
+            free(a);
+            free(b);
+            free(c);
+        }
+    }
 }
-
-int	ft_lstadd_back_test(void)
-{
-	enum theft_run_res	res;
-
-	struct theft_run_config cfg = {
-		.prop3 = prop_lstadd_back,
-		.name = __FILE__,
-		.trials = 1000,
-		.type_info = {theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
-			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY),
-			theft_get_builtin_type_info(THEFT_BUILTIN_char_ARRAY)},
-	};
-	res = theft_run(&cfg);
-	if (res != THEFT_RUN_PASS)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-REGISTER_TEST(1, ft_lstadd_back_test)
-
-#ifndef ALL_TESTS
-int	main(void)
-{
-	return (ft_lstadd_back_test());
-}
-#endif
