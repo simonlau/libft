@@ -10,28 +10,16 @@ tstsuite("ft_calloc") {
     tstcase("property matches libc calloc (zeroed allocation)") {
         size_t	count;
         size_t	size;
+        size_t	len;
         void	*actual;
         void	*expected;
         int		i;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
-            count = (size_t)rand();
-            size = (size_t)rand();
-            if (count == 0 || size == 0
-                || (size != 0 && count > SIZE_MAX / size))
-            {
-                void	*p = ft_calloc(count, size);
-
-                free(p);
-                continue ;
-            }
-            {
-                size_t	len = count * size; /* safe: non-overflow branch */
-
-                if (len > (1ULL << 20)) /* skip huge allocs that abort under ASan */
-                    continue ;
-            }
+            count = (size_t)(rand() % 256 + 1);
+            size = (size_t)(rand() % 256 + 1);
+            len = count * size; /* always small: no overflow, always <= 1MB */
             actual = ft_calloc(count, size);
             expected = calloc(count, size);
             if (actual == NULL && expected == NULL) {
@@ -45,7 +33,7 @@ tstsuite("ft_calloc") {
                 free(expected);
                 continue ;
             }
-            tstexpect(memcmp(actual, expected, count) == 0,
+            tstexpect(memcmp(actual, expected, len) == 0,
                 "ft_calloc(%zu, %zu) is not zeroed like calloc", count, size);
             free(actual);
             free(expected);

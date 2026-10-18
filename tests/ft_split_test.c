@@ -81,4 +81,31 @@ tstsuite("ft_split") {
             free(s2);
         }
     }
+
+    tstcase("edge degenerate inputs") {
+        const char	*inputs[] = {
+            "",            /* empty string */
+            "cccc",        /* delimiter only */
+            "c",           /* single delimiter */
+            "a",           /* single segment, no delimiter */
+            "aaaa",        /* single segment, no delimiter (multi) */
+            "cac",         /* segment surrounded */
+            "cacccb",      /* two segments, uneven delimiters */
+        };
+        char	c = 'c';
+        size_t	n = sizeof(inputs) / sizeof(inputs[0]);
+
+        for (size_t i = 0; i < n; i++) {
+            char	**result = ft_split(inputs[i], c);
+            int		seg_count = 0;
+
+            if (result != NULL)
+                while (result[seg_count] != NULL)
+                    seg_count++;
+            tstexpect(result != NULL && result[seg_count] == NULL,
+                "ft_split(\"%s\", 'c') = %p not NULL-terminated (%d segments)", inputs[i], (void *)result, seg_count);
+            if (result != NULL)
+                free_result(result);
+        }
+    }
 }

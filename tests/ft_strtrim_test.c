@@ -52,4 +52,32 @@ tstsuite("ft_strtrim") {
             free(set);
         }
     }
+
+    tstcase("edge all-trimmed returns fresh empty string, not NULL") {
+        const char	*s1;
+        const char	*set;
+        char		*result;
+
+        struct {
+            const char	*s;
+            const char	*set;
+        } cases[] = {
+            { "",       "" },
+            { "   ",    " " },
+            { "\t\n",   " \t\n" },
+            { "abba",   "ab" },
+            { "xxxyxx", "xy" },
+        };
+        size_t n = sizeof(cases) / sizeof(cases[0]);
+
+        for (size_t i = 0; i < n; i++) {
+            s1 = cases[i].s;
+            set = cases[i].set;
+            result = ft_strtrim(s1, set);
+            tstexpect(result != NULL && result[0] == '\0',
+                "ft_strtrim(\"%s\", \"%s\") must return fresh empty string, got %p",
+                s1, set, (void *)result);
+            free(result);
+        }
+    }
 }

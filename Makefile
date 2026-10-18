@@ -73,7 +73,7 @@ OBJS := $(SRCS:.c=.o)
 DEPS := $(SRCS:.c=.d)
 NAME := libft.a
 
-.PHONY: all clean fclean re test run-tests coverage clone-tst wipe all-tests run-all build-tests clean-tests
+.PHONY: all clean fclean re test run-tests coverage clone-tst wipe build-tests clean-tests
 
 all: $(NAME)
 
@@ -96,12 +96,6 @@ run-tests: clean-tests
 
 clean-tests:
 	rm -f $(TST_BINS)
-
-all-tests: tests/all-tests.c tests/registry.c $(NAME) | clone-tst
-	$(CC) $(CFLAGS) -Itests -o $@ tests/all-tests.c tests/registry.c $(NAME)
-
-run-all: all-tests
-	ASAN_OPTIONS=allocator_may_return_null=1 ./all-tests
 
 clone-tst:
 	@if [ ! -d $(TST_DIR) ]; then git clone --depth 1 $(TST_URL) $(TST_DIR); fi

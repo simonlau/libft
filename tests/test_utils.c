@@ -21,7 +21,7 @@ char	*make_rand_str(void)
 	if (s == NULL)
 		return (NULL);
 	for (int j = 0; j < len; j++)
-		s[j] = (char)(rand() % 95 + 32);
+		s[j] = (char)(rand() % 255 + 1);
 	s[len] = '\0';
 	return (s);
 }
