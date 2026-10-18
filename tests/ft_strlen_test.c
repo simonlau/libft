@@ -10,7 +10,6 @@ tstsuite("ft_strlen")
 	size_t	result;
 	size_t	expected;
 	int		i;
-	char	*tstdata[] = {"", "x", "abc\0def"};
 
 	srand(SEED);
 	tstcase("property test matches strlen oracle")
@@ -25,6 +24,7 @@ tstsuite("ft_strlen")
 	}
 	tstcase("check special cases")
 	{
+		const char *tstdata[] = {"", "x", "abc\0def"};
 		tstsection("Check bounds")
 		{
 			tstexpect((expected = strlen(tstcurdata)) == (result = ft_strlen(tstcurdata)),

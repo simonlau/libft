@@ -11,7 +11,6 @@ tstsuite("ft_strchr")
 	char	*expected;
 	char	*result;
 	int		i;
-	char	*tstdata[] = {"", "x", "abc", "hello world", "abc\0def"};
 
 	srand(SEED);
 	tstcase("property test matches strchr oracle")
@@ -27,6 +26,7 @@ tstsuite("ft_strchr")
 	}
 	tstcase("check special cases")
 	{
+		const char *tstdata[] = {"", "x", "abc", "hello world", "abc\0def"};
 		tstsection("Check bounds")
 		{
 			c = rand() % 256;

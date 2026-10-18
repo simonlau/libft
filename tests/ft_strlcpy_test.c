@@ -16,7 +16,6 @@ tstsuite("ft_strlcpy")
 	size_t	result;
 	size_t	expected_result;
 	int		i;
-	char	*tstdata[] = {"", "x", "abc", "hello world"};
 
 	srand(SEED);
 	tstcase("property test matches strlcpy oracle")
@@ -46,6 +45,7 @@ tstsuite("ft_strlcpy")
 	}
 	tstcase("check special cases")
 	{
+		const char *tstdata[] = {"", "x", "abc", "hello world"};
 		tstsection("Check bounds")
 		{
 			num = rand() % 64;
