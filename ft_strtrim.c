@@ -24,6 +24,15 @@ static void	find_trim_bounds(const char *s1, const char *set,
 		(*end)--;
 }
 
+/**
+ * @brief Allocates and returns a copy of s1 with characters
+ * from set removed from beginning and end.
+ * @param s1 The string to be trimmed.
+ * @param set The string containing the set of characters to remove.
+ * @return The trimmed string. NULL if allocation fails.
+ *
+ * @see raw/project-overview/libft-subject.md
+ */
 char	*ft_strtrim(const char *s1, const char *set)
 {
 	const char	*start;

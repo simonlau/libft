@@ -55,6 +55,13 @@ static long long	parse_digits(const char *str_ptr)
 	return (result);
 }
 
+/**
+ * @brief Converts the initial portion of the string to an int.
+ * @param str The string to convert to an integer.
+ * @return The converted integer value.
+ *
+ * @see man atoi(3)
+ */
 int	ft_atoi(const char *str)
 {
 	long long		result;
