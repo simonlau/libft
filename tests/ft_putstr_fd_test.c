@@ -6,16 +6,16 @@
 #include <unistd.h>
 #include "test.h"
 
+static void	putstr_wrapper(void *payload, int fd)
+{
+	ft_putstr_fd((char *)payload, fd);
+}
+
 tstsuite("ft_putstr_fd") {
     tstcase("property writes the full string to the fd") {
         char	*s;
-        int		fds[2];
-        char	stack[4096];
-        char	*out;
         size_t	len;
-        ssize_t	total;
         int		i;
-        int		ok;
 
         srand(SEED);
         for (i = 0; i < TRIALS; i++) {
@@ -23,35 +23,9 @@ tstsuite("ft_putstr_fd") {
             if (s == NULL)
                 continue ;
             len = strlen(s);
-            out = (len > sizeof(stack)) ? malloc(len) : stack;
-            if (len != 0 && out == NULL)
-            {
-                free(s);
-                continue ;
-            }
-            if (pipe(fds) != 0)
-            {
-                if (out != stack)
-                    free(out);
-                free(s);
-                continue ;
-            }
-            ft_putstr_fd(s, fds[PIPE_WRITE_END]);
-            close(fds[PIPE_WRITE_END]);
-            total = capture_begin(fds[PIPE_READ_END], out, len);
-            if (total < 0)
-                ok = 0;
-            else
-            {
-                size_t	more = capture_end(fds[PIPE_READ_END]);
-                ok = ((size_t)total == len && more == 0
-                     && (len == 0 || memcmp(out, s, len) == 0));
-            }
-            if (out != stack)
-                free(out);
+            tstexpect(assert_fd_output(putstr_wrapper, s, s, len),
+                "ft_putstr_fd(%s) wrote wrong bytes", s);
             free(s);
-            tstexpect(ok,
-                "ft_putstr_fd(%s) wrote %zd bytes", s, total);
         }
     }
 }

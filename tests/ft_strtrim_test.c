@@ -75,4 +75,25 @@ tstsuite("ft_strtrim") {
             free(result);
         }
     }
+
+    tstcase("edge NULL s1 returns fresh empty string, not NULL") {
+        char    *result;
+
+        result = ft_strtrim(NULL, "abc");
+        tstexpect(result != NULL && result[0] == '\0',
+            "ft_strtrim(NULL, \"abc\") must return fresh empty string, got %p",
+            (void *)result);
+        free(result);
+    }
+
+    tstcase("edge NULL set returns copy of s1") {
+        char    *result;
+        const char *s1 = "hello";
+
+        result = ft_strtrim(s1, NULL);
+        tstexpect(result != NULL && strcmp(result, s1) == 0,
+            "ft_strtrim(\"%s\", NULL) must return copy of s1, got %p",
+            s1, (void *)result);
+        free(result);
+    }
 }

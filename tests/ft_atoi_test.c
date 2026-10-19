@@ -50,4 +50,29 @@ tstsuite("ft_atoi")
 				"ft_atoi(\"%s\") = %d != %d", tstcurdata, result, expected);
 		}
 	}
+	tstcase("edge overflow clamps to INT_MIN and INT_MAX")
+	{
+		const char *tstdata[] = {
+			"2147483648",   /* INT_MAX + 1 -> clamp to INT_MAX */
+			"-2147483649",  /* INT_MIN - 1 -> clamp to INT_MIN */
+			"999999999999", /* way beyond -> INT_MAX */
+			"-999999999999",/* way beyond -> INT_MIN */
+			"+2147483648",  /* signed INT_MAX + 1 -> clamp to INT_MAX */
+		};
+		int expected[] = {
+			INT_MAX,
+			INT_MIN,
+			INT_MAX,
+			INT_MIN,
+			INT_MAX,
+		};
+		int n = sizeof(tstdata) / sizeof(tstdata[0]);
+
+		for (i = 0; i < n; i++)
+		{
+			result = ft_atoi(tstdata[i]);
+			tstexpect(result == expected[i],
+				"ft_atoi(\"%s\") = %d, expected %d", tstdata[i], result, expected[i]);
+		}
+	}
 }

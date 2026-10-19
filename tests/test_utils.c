@@ -1,6 +1,7 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <stdint.h>
+#include <string.h>
 #include <unistd.h>
 #include "test.h"
 
@@ -112,4 +113,60 @@ size_t	capture_end(int fd)
 	}
 	close(fd);
 	return (extra);
+}
+
+/* Run `body` once per trial, seeding `srand(seed)` internally.
+ * Each invocation receives its zero-based trial index and the caller's ctx.
+ * The caller owns any allocations made inside body. Returns void; failures
+ * are reported by body through tstexpect. */
+void	run_trials(int seed, int trials, void (*body)(int, void *), void *ctx)
+{
+	int	i;
+
+	srand(seed);
+	i = 0;
+	while (i < trials)
+	{
+		body(i, ctx);
+		i++;
+	}
+}
+
+/* Assert that `fn(payload, fd)` writes exactly `expected` to `fd`.
+ * Owns the pipe -> write -> close -> capture -> drain -> compare sequence
+ * behind one seam. Uses a fixed internal buffer (heap if expected is large).
+ * Returns 1 on match, 0 on mismatch; caller asserts via tstexpect. */
+int		assert_fd_output(void (*fn)(void *, int fd), void *payload,
+			 const char *expected, size_t expected_len)
+{
+	int		fds[2];
+	char	stack[4096];
+	char	*out;
+	ssize_t	total;
+	size_t	more;
+	int		ok;
+
+	out = stack;
+	if (expected_len > sizeof(stack))
+		out = malloc(expected_len);
+	if (out == NULL)
+		return (0);
+	ok = 0;
+	total = -1;
+	more = 0;
+	if (pipe(fds) == 0)
+	{
+		fn(payload, fds[PIPE_WRITE_END]);
+		close(fds[PIPE_WRITE_END]);
+		total = capture_begin(fds[PIPE_READ_END], out, expected_len);
+		if (total >= 0)
+		{
+			more = capture_end(fds[PIPE_READ_END]);
+			ok = ((size_t)total == expected_len && more == 0
+			     && (expected_len == 0 || memcmp(out, expected, expected_len) == 0));
+		}
+	}
+	if (out != stack)
+		free(out);
+	return (ok);
 }
